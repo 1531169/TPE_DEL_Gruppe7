@@ -7,4 +7,5 @@ public class Test {
 	public static void main(String[]args){
 		
 	}
+	String text = "ich wohne in der bib now !!!";
 }

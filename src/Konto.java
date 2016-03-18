@@ -1,0 +1,6 @@
+
+class Konto {
+
+	public Konto() {
+	}
+}

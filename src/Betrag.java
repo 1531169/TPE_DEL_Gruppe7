@@ -1,0 +1,6 @@
+
+class Betrag {
+
+	public Betrag() {
+	}
+}

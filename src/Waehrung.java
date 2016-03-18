@@ -1,0 +1,6 @@
+
+class Waehrung {
+
+	public Waehrung() {
+	}
+}

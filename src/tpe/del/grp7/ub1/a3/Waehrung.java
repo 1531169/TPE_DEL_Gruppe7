@@ -13,14 +13,33 @@ class Waehrung {
 	private String kuerzel;
 	private double kurs;
 	
-	public Waehrung() {
+	/**
+	 * Konstruktor
+	 * 
+	 * @param name  entsprechend Instanzvariable
+	 * @param kuerzel  entsprechend Instanzvariable
+	 * @param kurs  entsprechend Instanzvariable
+	 */
+	public Waehrung(String name, String kuerzel, double kurs) {
+		this.name = name;
+		this.kuerzel = kuerzel;
+		this.kurs = kurs;
 	}
 
+	/**
+	 * Methode, mit der man Beträge von einer Währung in eine andere umrechnen kann.
+	 * 
+	 * @param betrag  Übergebener Betrag
+	 * @param waehrung  Übergebene Zielwährung
+	 * @return gibt den umgerechneten Betrag als long zurück
+	 */
 	public long umrechnen(long betrag, Waehrung waehrung) {
-		return betrag;
-		
+		double temp = betrag * this.getKurs();
+		temp = temp / waehrung.getKurs();
+		long result = (long) temp;
+		return result;		
 	}
-
+		
 	/**
 	 * Getter-Methode für name
 	 * 
@@ -47,7 +66,16 @@ class Waehrung {
 	public double getKurs() {
 		return kurs;
 	}
-
+	
+	/**
+	 * Methode, die die Informationen zur Währung als String zurückgibt.
+	 * 
+	 * @Override
+	 * @return gibt ebendiesen String zurück
+	 */
+	public String toString() {
+		return name + " [" + kuerzel + "] 1 " + kuerzel + " = " + kurs + " $";
+	}
 	
 	/**
 	 * Methode, die einen Hash-Wert über das Objekt berechnet.
@@ -70,7 +98,7 @@ class Waehrung {
 	 * Methode, die den Inhalt eines Objekts mit einem anderen vergleicht.
 	 * 
 	 * @Override
-	 * @param Objekt, mit dem verglichen wird
+	 * @param obj  Objekt, mit dem verglichen wird
 	 * @return gibt Auskunft über die Gleichheit der beiden Objekten in Form von true oder false
 	 */
 	public boolean equals(Object obj) {

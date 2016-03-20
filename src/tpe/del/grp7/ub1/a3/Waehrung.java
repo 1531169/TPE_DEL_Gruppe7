@@ -74,6 +74,7 @@ class Waehrung {
 	 * @return gibt ebendiesen String zurück
 	 */
 	public String toString() {
+		// TO-DO: Ausgabe des Wechselkurses mit vier Nachkommastellen
 		return name + " [" + kuerzel + "] 1 " + kuerzel + " = " + kurs + " $";
 	}
 	

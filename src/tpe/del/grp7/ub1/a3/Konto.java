@@ -49,19 +49,20 @@ class Konto {
 	 * die von der Kontowahrung abweicht, wird der Betrag automatisch 
 	 * zum jeweiligen Wechselkurs in die Kontowaehrung umgerechnet..
 	 * 
-	 * @return weahrung gibt die Waehrung als Waehrung zurück.
+	 * @param betrag
 	 */
 
 	public void buche(Betrag betrag) {
 		
-		// hier wird geprüft, ob die Buchungsliste voll ist.
+		// hier wird geprüft, ob die Buchungsliste voll ist (1000 Buchungen möglich).
 		if (index > 999) {
 			System.out.println("Fehler: größte Anzahl von Buchungen erreicht !!!");
 		} else {
 			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
 			if (!waehrung.equals(betrag.getWaehrung())) {
 				
-				// falls ja, wird den betrag in die richtige Waehrung umrechnet
+				// falls ja, wird den betrag in die richtige Waehrung umrechnet 
+				// und in einer Buchungsliste gespeichert.
 				long newBetrag = waehrung.umrechnen(betrag.getBetrag(), waehrung);
 				buchungsListe[index++] = new Betrag(newBetrag, waehrung);
 
@@ -70,13 +71,23 @@ class Konto {
 			}
 		}
 	}
-
+	
+/**
+ * Mit der Methode saldo() kann man das Saldo auf dem Konto abfragen.
+ * 
+ * @return result gibt das Resultat als double zurück. 
+ */
 	public double saldo() {
 		long saldo = 0;
+		
+		// durch diese Schleife wird die Buchungsliste durchgelaufen 
+		// und die Betraege sommiert.
+		
 		for (int i = 0; i < index; i++) {
 			saldo = saldo + buchungsListe[i].getBetrag();
 		}
-		return (double) saldo / 100;
+		double result = (double) saldo / 100;
+		return result;
 
 	}
 
@@ -85,6 +96,7 @@ class Konto {
 		double abzug = 0;
 
 		abzug = saldo() * promilleZahl / 1000;
+		// hier wird das Vorzeichen
 		if (saldo() < 0) {
 			buchungsListe[index++] = new Betrag((long) abzug, waehrung);
 			return (long) abzug;
@@ -94,17 +106,17 @@ class Konto {
 		}
 	}
 
-	public String toString() { // erzeugt ein String für den Aufzug.
+	public String toString() { // erzeugt ein String für den Kontoauszug.
 
-		String kontoAufzug = "Kontoinhaber: " + inhaber + "\nWährung: " + waehrung.getName() + "\n------------\n";
+		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " + waehrung.getName() + "\n------------\n";
 
 		// Hier wird die Liste unserer Buchungen vom Anfang bis zum Index
 		// durchglaufen und die Werte in kontoAuszug geschrieben.
 
 		for (int i = 0; i < index; i++) {
-			kontoAufzug = buchungsListe[i].toString() + "\n";
+			kontoAuszug = kontoAuszug + buchungsListe[i].toString() + "\n";
 		}
-		kontoAufzug = "------------\n" + "Saldo: " + saldo() + waehrung.getKuerzel();
-		return kontoAufzug;
+		kontoAuszug = kontoAuszug + "------------\n" + "Saldo: " + saldo() + waehrung.getKuerzel();
+		return kontoAuszug;
 	}
 }

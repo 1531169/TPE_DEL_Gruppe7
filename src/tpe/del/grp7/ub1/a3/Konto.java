@@ -1,8 +1,8 @@
 package tpe.del.grp7.ub1.a3;
 
 /**
- * in dieser Klasse werden gezeigt, wie die Daten in einem Konto behandelt werden.  
- * 
+ * in dieser Klasse werden gezeigt, wie die Daten 
+ * in einem Konto behandelt werden.  
  * @author Groupe 7
  *@version 22.03.2016
  */
@@ -44,12 +44,13 @@ class Konto {
 	}
 	
 	/**
-	 * Methode, koennen Betraege auf das Konto gebucht werden (positive wie negative).
-	 * Wenn der gebuchte Betrag in einer anderen Fremdwaehrung erfolgt, d. h. in einer Waehrung,
-	 * die von der Kontowahrung abweicht, wird der Betrag automatisch 
+	 * Mit dieser Methode, koennen Betraege auf das Konto gebucht werden 
+	 * (positive wie negative). Wenn der gebuchte Betrag in einer anderen
+	 * Fremdwaehrung erfolgt, d. h. in einer Waehrung, die von der 
+	 * Kontowahrung abweicht, wird der Betrag automatisch 
 	 * zum jeweiligen Wechselkurs in die Kontowaehrung umgerechnet..
 	 * 
-	 * @param betrag
+	 * @param betrag wird in das Array buchungsListe gespeichert. 
 	 */
 
 	public void buche(Betrag betrag) {
@@ -58,6 +59,7 @@ class Konto {
 		if (index > 999) {
 			System.out.println("Fehler: größte Anzahl von Buchungen erreicht !!!");
 		} else {
+			
 			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
 			if (!waehrung.equals(betrag.getWaehrung())) {
 				
@@ -78,15 +80,16 @@ class Konto {
  * @return result gibt das Resultat als double zurück. 
  */
 	public double saldo() {
-		long saldo = 0;
+		Betrag saldo = new Betrag(0,waehrung);
 		
-		// durch diese Schleife wird die Buchungsliste durchgelaufen 
+		// durch diese Schleife wird die Buchungsliste bis durchgelaufen 
 		// und die Betraege sommiert.
 		
 		for (int i = 0; i < index; i++) {
-			saldo = saldo + buchungsListe[i].getBetrag();
+			saldo = saldo.addiere(buchungsListe[i]);
 		}
-		double result = (double) saldo / 100;
+		
+		double result = (double)saldo.getBetrag()/ 100;
 		return result;
 
 	}
@@ -108,7 +111,8 @@ class Konto {
 
 	public String toString() { // erzeugt ein String für den Kontoauszug.
 
-		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " + waehrung.getName() + "\n------------\n";
+		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " 
+		+ waehrung.getName() + "\n------------\n";
 
 		// Hier wird die Liste unserer Buchungen vom Anfang bis zum Index
 		// durchglaufen und die Werte in kontoAuszug geschrieben.

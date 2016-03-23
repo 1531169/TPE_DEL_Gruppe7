@@ -64,7 +64,7 @@ class Konto {
 				
 				// falls ja, wird den betrag in die richtige Waehrung umrechnet 
 				// und in einer Buchungsliste gespeichert.
-				long newBetrag = waehrung.umrechnen(betrag.getBetrag(), waehrung);
+				long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), waehrung);
 				buchungsListe[index++] = new Betrag(newBetrag, waehrung);
 
 			} else {
@@ -115,9 +115,9 @@ class Konto {
 		// durchglaufen und die Werte in kontoAuszug geschrieben.
 
 		for (int i = 0; i < index; i++) {
-			kontoAuszug = kontoAuszug + buchungsListe[i].toString() + "\n";
+			kontoAuszug += buchungsListe[i].toString() + "\n";
 		}
-		kontoAuszug = kontoAuszug + "------------\n" + "Saldo: " + saldo() + waehrung.getKuerzel();
-		return kontoAuszug;
+		
+		return kontoAuszug + "------------\n" + "Saldo: " + saldo() + waehrung.getKuerzel();
 	}
 }

@@ -79,15 +79,16 @@ class Konto {
  * @return result gibt das Resultat als double zurück. 
  */
 	public double saldo() {
-		long saldo = 0;
+		Betrag saldo = new Betrag(0,waehrung);
 		
-		// durch diese Schleife wird die Buchungsliste durchgelaufen 
+		// durch diese Schleife wird die Buchungsliste bis durchgelaufen 
 		// und die Betraege sommiert.
 		
 		for (int i = 0; i < index; i++) {
-			saldo = saldo + buchungsListe[i].getBetrag();
+			saldo = saldo.addiere(buchungsListe[i]);
 		}
-		double result = (double) saldo / 100;
+		
+		double result = (double)saldo.getBetrag()/ 100;
 		return result;
 
 	}

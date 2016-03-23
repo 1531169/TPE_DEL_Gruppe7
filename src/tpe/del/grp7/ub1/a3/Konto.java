@@ -44,12 +44,12 @@ class Konto {
 	}
 	
 	/**
-	 * Methode, koennen Betraege auf das Konto gebucht werden (positive wie negative).
+	 * Mit dieser Methode, koennen Betraege auf das Konto gebucht werden (positive wie negative).
 	 * Wenn der gebuchte Betrag in einer anderen Fremdwaehrung erfolgt, d. h. in einer Waehrung,
 	 * die von der Kontowahrung abweicht, wird der Betrag automatisch 
 	 * zum jeweiligen Wechselkurs in die Kontowaehrung umgerechnet..
 	 * 
-	 * @param betrag
+	 * @param betrag wird in das Array buchungsListe gespeichert. 
 	 */
 
 	public void buche(Betrag betrag) {
@@ -58,6 +58,7 @@ class Konto {
 		if (index > 999) {
 			System.out.println("Fehler: größte Anzahl von Buchungen erreicht !!!");
 		} else {
+			
 			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
 			if (!waehrung.equals(betrag.getWaehrung())) {
 				

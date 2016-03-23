@@ -1,8 +1,8 @@
 package tpe.del.grp7.ub1.a3;
 
 /**
- * in dieser Klasse werden gezeigt, wie die Daten in einem Konto behandelt werden.  
- * 
+ * in dieser Klasse werden gezeigt, wie die Daten 
+ * in einem Konto behandelt werden.  
  * @author Groupe 7
  *@version 22.03.2016
  */
@@ -44,9 +44,10 @@ class Konto {
 	}
 	
 	/**
-	 * Mit dieser Methode, koennen Betraege auf das Konto gebucht werden (positive wie negative).
-	 * Wenn der gebuchte Betrag in einer anderen Fremdwaehrung erfolgt, d. h. in einer Waehrung,
-	 * die von der Kontowahrung abweicht, wird der Betrag automatisch 
+	 * Mit dieser Methode, koennen Betraege auf das Konto gebucht werden 
+	 * (positive wie negative). Wenn der gebuchte Betrag in einer anderen
+	 * Fremdwaehrung erfolgt, d. h. in einer Waehrung, die von der 
+	 * Kontowahrung abweicht, wird der Betrag automatisch 
 	 * zum jeweiligen Wechselkurs in die Kontowaehrung umgerechnet..
 	 * 
 	 * @param betrag wird in das Array buchungsListe gespeichert. 
@@ -110,7 +111,8 @@ class Konto {
 
 	public String toString() { // erzeugt ein String für den Kontoauszug.
 
-		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " + waehrung.getName() + "\n------------\n";
+		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " 
+		+ waehrung.getName() + "\n------------\n";
 
 		// Hier wird die Liste unserer Buchungen vom Anfang bis zum Index
 		// durchglaufen und die Werte in kontoAuszug geschrieben.

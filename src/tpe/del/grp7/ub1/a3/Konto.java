@@ -1,5 +1,7 @@
 package tpe.del.grp7.ub1.a3;
 
+
+
 /**
  * in dieser Klasse werden gezeigt, wie die Daten 
  * in einem Konto behandelt werden.  
@@ -57,7 +59,7 @@ class Konto {
 		
 		// hier wird geprüft, ob die Buchungsliste voll ist (1000 Buchungen möglich).
 		if (index > 999) {
-			System.out.println("Fehler: größte Anzahl von Buchungen erreicht !!!");
+//			System.out.println("Fehler: größte Anzahl von Buchungen erreicht !!!");
 		} else {
 			
 			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
@@ -112,7 +114,7 @@ class Konto {
 	public String toString() { // erzeugt ein String für den Kontoauszug.
 
 		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " 
-		+ waehrung.getName() + "\n------------\n";
+							+ waehrung.getName() + "\n------------\n";
 
 		// Hier wird die Liste unserer Buchungen vom Anfang bis zum Index
 		// durchglaufen und die Werte in kontoAuszug geschrieben.
@@ -121,6 +123,8 @@ class Konto {
 			kontoAuszug += buchungsListe[i].toString() + "\n";
 		}
 		
-		return kontoAuszug + "------------\n" + "Saldo: " + saldo() + waehrung.getKuerzel();
+		return kontoAuszug + "------------\n" + "Saldo: " + saldo() + " " + waehrung.getKuerzel();
 	}
+	
+	
 }

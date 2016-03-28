@@ -1,9 +1,10 @@
 package tpe.del.grp7.ub1.a3;
 
 /**
- * Diese Klasse liefert vorgefertigte Objekte von Währungen,
- * damit diese einfach innerhalb des Programms wiederverwendet
- * werden können.
+ * This class delivers created objects of the class Waehrung,
+ * so that they can be reused simply within the program.
+ * This class is abstract, so no instances of this class can be created.
+ * Furthermore its attributes are constants declared as public static final. 
  * 
  * @author Gruppe7
  * @version 20.03.2016

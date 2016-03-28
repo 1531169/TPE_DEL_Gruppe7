@@ -1,7 +1,7 @@
 package tpe.del.grp7.ub1.a3;
 
 /**
- * In dieser Klasse liegen die Daten zu einer Währung.
+ * In this class there is the data of a currency.
  * 
  * @author Gruppe 7
  * @version 20.03.2016
@@ -14,11 +14,11 @@ class Waehrung {
 	private double kurs;
 	
 	/**
-	 * Konstruktor
+	 * Constructor
 	 * 
-	 * @param name  entsprechend Instanzvariable
-	 * @param kuerzel  entsprechend Instanzvariable
-	 * @param kurs  entsprechend Instanzvariable
+	 * @param name  equivalent to attribute
+	 * @param kuerzel  equivalent to attribute
+	 * @param kurs  equivalent to attribute
 	 */
 	public Waehrung(String name, String kuerzel, double kurs) {
 		this.name = name;
@@ -27,11 +27,11 @@ class Waehrung {
 	}
 
 	/**
-	 * Methode, mit der man Beträge von einer Währung in eine andere umrechnen kann.
+	 * With this method amounts of one currency can be converted to another.
 	 * 
-	 * @param betrag  Übergebener Betrag
-	 * @param waehrung  Übergebene Zielwährung
-	 * @return gibt den umgerechneten Betrag als long zurück
+	 * @param betrag  passed amount
+	 * @param waehrung  passed target currency
+	 * @return returns converted amount as type long
 	 */
 	public long umrechnen(long betrag, Waehrung waehrung) {
 		double temp = betrag * this.getKurs();
@@ -41,37 +41,37 @@ class Waehrung {
 	}
 		
 	/**
-	 * Getter-Methode für name
+	 * Getter-method for name
 	 * 
-	 * @return gibt Instanzvariable name zurück
+	 * @return return attribute name
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Getter-Methode für kuerzel
+	 * Getter-method for kuerzel
 	 * 
-	 * @return gibt Instanzvariable kuerzel zurück
+	 * @return returns attribute kuerzel
 	 */
 	public String getKuerzel() {
 		return kuerzel;
 	}
 
 	/**
-	 * Getter-Methode für kurs
+	 * Getter-method for kurs
 	 * 
-	 * @return gibt Instanzvariable kurs zurück
+	 * @return returns attribute kurs
 	 */
 	public double getKurs() {
 		return kurs;
 	}
 	
 	/**
-	 * Methode, die die Informationen zur Währung als String zurückgibt.
+	 * This method returns information about an object of this class as a String.
 	 * 
 	 * @Override
-	 * @return gibt ebendiesen String zurück
+	 * @return returns this String
 	 */
 	public String toString() {
 		// TO-DO: Ausgabe des Wechselkurses mit vier Nachkommastellen
@@ -79,10 +79,10 @@ class Waehrung {
 	}
 	
 	/**
-	 * Methode, die einen Hash-Wert über das Objekt berechnet.
+	 * This method calculates a hash value over the object
 	 * 
 	 * @Override
-	 * @return gibt Hash-Wert zurück 
+	 * @return returns hash value 
 	 */
 	public int hashCode() {
 		final int prime = 31;
@@ -96,11 +96,11 @@ class Waehrung {
 	}
 
 	/**
-	 * Methode, die den Inhalt eines Objekts mit einem anderen vergleicht.
+	 * This method compares two objects content.
 	 * 
 	 * @Override
-	 * @param obj  Objekt, mit dem verglichen wird
-	 * @return gibt Auskunft über die Gleichheit der beiden Objekten in Form von true oder false
+	 * @param obj  the object that is compared with
+	 * @return returns true or false depending on whether the compared objects are equal or not
 	 */
 	public boolean equals(Object obj) {
 		if (this == obj)

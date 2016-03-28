@@ -1,12 +1,16 @@
 package tpe.del.grp7.ub1.a3;
 
 import java.text.DecimalFormat;
-
+ /**
+  * 
+  * @author		Cedric
+  *	@version	
+  */
 public class Betrag {
 	/**
 	 * Contains the amount and the last two digits are the decimals.
 	 */
-	private long 	 betrag;
+	private long betrag;
 	/**
 	 * Contains the currency of the amount.
 	 */
@@ -21,7 +25,7 @@ public class Betrag {
 		if(waehrung == null) {
 			throw new IllegalArgumentException("waehrung can't be null");
 		}
-		this.betrag	  = (long)(betrag * 100);
+		this.betrag	= (long)(betrag * 100);
 		this.waehrung = waehrung;
 	}
 
@@ -34,7 +38,7 @@ public class Betrag {
 		if(waehrung == null) {
 			throw new IllegalArgumentException("waehrung can't be null");
 		}
-		this.betrag	  = betrag;
+		this.betrag = betrag;
 		this.waehrung = waehrung;
 	}
 	

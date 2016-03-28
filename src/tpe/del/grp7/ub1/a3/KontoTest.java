@@ -1,5 +1,6 @@
 package tpe.del.grp7.ub1.a3;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,30 @@ import org.junit.Test;
  */
 
 public class KontoTest extends Waehrungen {
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testConstructorThrowsInvalidArgumentException() {
+		new Konto(null, Waehrungen.euro);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testConstructorThrowsInvalidArgumentExceptionEmptyString() {
+		new Konto("", Waehrungen.euro);
+		// TODO: Ist es erlaub einen leeren String zu übergeben?
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testConstructorThrowsInvalidArgumentException2() {
+		new Konto("Ferly Loic", null);
+	}
+	
+	@Test
+	public void testBuche() {
+		double expected = 100.0;
+		Konto konto = new Konto("Ferly Loic", Waehrungen.euro);
+		konto.buche(new Betrag(10000, Waehrungen.euro));
+		Assert.assertEquals(expected, konto.saldo(), 0.001);
+	}
 
 	@Test
 	public void test() {

@@ -75,7 +75,10 @@ public class Betrag {
 	 * @return		result of calculation as Betrag
 	 */
 	Betrag subtrahiere(Betrag b) {
-		return addiere(new Betrag(-b.getBetrag(), b.getWaehrung()));
+		if(b == null) {
+			return addiere(null);
+		}
+		return addiere(new Betrag(-(b.getBetrag()), b.getWaehrung()));
 	}
 	
 	/**
@@ -84,7 +87,7 @@ public class Betrag {
 	 * @return		result of calculation as Betrag
 	 */
 	Betrag multipliziere(double zahl) {
-		return new Betrag(getBetrag() * zahl, getWaehrung());
+		return new Betrag(getAsDouble() * zahl, getWaehrung());
 	}
 	
 	/**
@@ -121,7 +124,7 @@ public class Betrag {
 	 * @return		result of the formula
 	 */
 	private double calcProzentAndPromille(double p, int div) {
-		return getBetrag() * p / div;
+		return getAsDouble() * p / div;
 	}
 	
 	/**
@@ -138,17 +141,6 @@ public class Betrag {
 	 */
 	byte getNachkomma() {
 		return (byte)(((double)getBetrag()) % 100  * getVorzeichen());
-	}
-	
-	@Override
-	public String toString() {
-		DecimalFormat f = new DecimalFormat("00");
-		String vorzeichen = "";
-		if(getVorzeichen() == -1) {
-			vorzeichen = "-";
-		}
-		return vorzeichen + getVorkomma() + "."
-				+ f.format(getNachkomma()) + " " + getWaehrung().getKuerzel();
 	}
 	
 	/**
@@ -173,5 +165,44 @@ public class Betrag {
 	 */
 	long getBetrag() {
 		return this.betrag;
+	}
+	
+	@Override
+	public String toString() {
+		DecimalFormat f = new DecimalFormat("00");
+		String vorzeichen = "";
+		if(getVorzeichen() == -1) {
+			vorzeichen = "-";
+		}
+		return vorzeichen + getVorkomma() + "."
+				+ f.format(getNachkomma()) + " " + getWaehrung().getKuerzel();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (betrag ^ (betrag >>> 32));
+		result = prime * result + ((waehrung == null) ? 0 : waehrung.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Betrag other = (Betrag) obj;
+		if (betrag != other.betrag)
+			return false;
+		if (waehrung == null) {
+			if (other.waehrung != null)
+				return false;
+		} else if (!waehrung.equals(other.waehrung))
+			return false;
+		return true;
 	}
 }

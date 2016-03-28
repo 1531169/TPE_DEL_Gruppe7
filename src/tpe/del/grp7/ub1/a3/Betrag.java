@@ -1,10 +1,12 @@
 package tpe.del.grp7.ub1.a3;
 
 import java.text.DecimalFormat;
+
  /**
+  * This class contains an amount in a specific currency and
+  * offers methods to calculations.
   * 
-  * @author		Cedric
-  *	@version	
+  * @author	Cedric
   */
 public class Betrag {
 	/**

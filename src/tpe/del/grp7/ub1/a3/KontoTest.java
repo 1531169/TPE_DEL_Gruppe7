@@ -57,7 +57,6 @@ public class KontoTest {
 		konto.buche(new Betrag(-100, Waehrungen.FRANKEN));
 		Assert.assertEquals(expected, konto.saldo(), 0.001);
 	}
-	
 	@Test
 	public void testGebuehrenSaldoPos() {
 		long expected = -1000;
@@ -81,5 +80,6 @@ public class KontoTest {
 		konto.gebuehren(10);
 		System.out.println(konto.toString());
 	}
+	
 	
 }

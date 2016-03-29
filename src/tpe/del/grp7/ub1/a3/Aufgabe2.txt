@@ -1,0 +1,11 @@
+Pflichtübung 1
+Gruppe 7
+Aufgabe 2 : Pakete
+Wir haben das Package für diese Übungsaufgabe tpe.del.grp7.ub1.a3 genannt. Bei der 
+Wahl des Namens sind wir chronologisch vorgegangen. Zu aller erst steht die Bezeichnung 
+für die Vorlesung, also tpe, danach kommt das Kürzel für den Dozenten (del). Darauf 
+folgt die Bezeichnung der Gruppe (grp7). Dies ist auch die Stelle, durch die es zu 
+keinen Kollisionen mit anderen Gruppen kommen kann, da die Gruppennummer 7 eindeutig 
+vergeben ist. Danach kommen schließlich noch die Bezeichnungen für das Übungsblatt 
+(ub1) und die Aufgabe (a3). Das ist der Teil, der in zukünftigen Pflichtübungen
+ variieren wird.

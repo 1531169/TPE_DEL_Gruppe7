@@ -1,6 +1,6 @@
 package tpe.del.grp7.ub1.a3;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * this class show you how the data will be handled in an account
@@ -10,11 +10,9 @@ import java.util.Arrays;
  */
 
 class Konto {
-
 	private String inhaber;
 	private Waehrung waehrung;
-	private Betrag[] buchungsListe = new Betrag[10];
-	private int index = 0;
+	private ArrayList<Betrag> buchungsListe = new ArrayList<>();
 
 	/**
 	 * constructor
@@ -38,7 +36,7 @@ class Konto {
 	 *
 	 * @return inhaber gives the name as a string.
 	 */
-	public String getInhaber() {
+	String getInhaber() {
 		return inhaber;
 	}
 
@@ -47,7 +45,7 @@ class Konto {
 	 * 
 	 * @return waehrung is the currency back as waehrung object.
 	 */
-	public Waehrung getWaehrung() {
+	Waehrung getWaehrung() {
 		return waehrung;
 	}
 
@@ -57,41 +55,21 @@ class Konto {
 	 * place(in a currency that differs to the accounts currency) the amount is
 	 * automatically converted to the prevailing rate in the accounts currency.
 	 *
-	 * @param betrag
-	 *            Is stored in the account.
+	 * @param betrag	amount to book in account
 	 */
-
-	public void buche(Betrag betrag) {
-
-		if (betrag == null) {
-
-		} else {
-			if (this.getWaehrung() == null) {
-				throw new IllegalArgumentException("waehrung des Kontos unbekannt !!!");
+	void buche(Betrag betrag) {
+		// if there is 
+		if (betrag != null) {
+			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
+			if(waehrung.equals(betrag.getWaehrung())) {
+				buchungsListe.add(betrag);
 			} else {
-
-			}
-			/*
-			 * hier wird geprüft, ob die Buchungsliste voll ist (10 Buchungen
-			 * möglich).
-			 */
-			if (index > 9) {
-				throw new IllegalArgumentException("Fehler: größte Anzahl von Buchungen erreicht !!!");
-			} else {
-
-				// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
-				if (!waehrung.equals(betrag.getWaehrung())) {
-
-					/*
-					 * falls ja, wird den betrag in die richtige Waehrung
-					 * umrechnet und in einer Buchungsliste gespeichert.
-					 */
-
-					long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), waehrung);
-					buchungsListe[index++] = new Betrag(newBetrag, waehrung);
-				} else {
-					buchungsListe[index++] = betrag;
-				}
+				/*
+				 * falls ja, wird den betrag in die richtige Waehrung
+				 * umrechnet und in einer Buchungsliste gespeichert.
+				 */
+				long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), waehrung);
+				buchungsListe.add(new Betrag(newBetrag, waehrung));
 			}
 		}
 	}
@@ -101,21 +79,16 @@ class Konto {
 	 * 
 	 * @return result is the result back as double.
 	 */
-	public double saldo() {
-		Betrag saldo = new Betrag(0, waehrung);
-
+	double saldo() {
+		Betrag sum = new Betrag(0, waehrung);
 		/*
-		 * Durch diese Schleife wird die Buchungsliste bis zum Index
-		 * durchgelaufen und die Betraege sommiert.
+		 * Hier wird die Liste unserer Buchungen vom Anfang bis 
+		 * Ende durchlaufen und die Werte addiert.
 		 */
-
-		for (int i = 0; i < index; i++) {
-			saldo = saldo.addiere(buchungsListe[i]);
+		for(Betrag b : buchungsListe) {
+			sum = sum.addiere(b);
 		}
-
-		double result = (double) saldo.getBetrag() / 100;
-		return result;
-
+		return sum.getAsDouble();
 	}
 
 	/**
@@ -125,23 +98,14 @@ class Konto {
 	 * @param promilleZahl
 	 * @return fees which will be deducted from the account as long .
 	 */
-
-	public long gebuehren(double promilleZahl) {
-		if (index > 9) {
-			throw new ArrayIndexOutOfBoundsException("Gebuehrenabzug unmöglich. Buchungsliste voll !!!");
-		} else {
-
-			double abzug = 0;
-			abzug = saldo() * promilleZahl / 1000;
-			// hier wird den abzug negiert und aus dem konto abgezogen.
-			if (saldo() < 0) {
-				buchungsListe[index++] = new Betrag((long) abzug, waehrung);
-				return (long) abzug;
-			} else {
-				buchungsListe[index++] = new Betrag(-(long) abzug, waehrung);
-				return -(long) abzug;
-			}
+	long gebuehren(double promilleZahl) {
+		Betrag saldo = new Betrag(saldo(), getWaehrung());
+		long gebuehr = saldo.promille(promilleZahl).getBetrag();
+		if(gebuehr > 0) {
+			gebuehr *= -1;
 		}
+		buchungsListe.add(new Betrag(gebuehr, getWaehrung()));
+		return gebuehr;
 	}
 
 	@Override
@@ -150,11 +114,11 @@ class Konto {
 		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " + waehrung.getName() + "\n------------\n";
 
 		/*
-		 * Hier wird die Liste unserer Buchungen vom Anfang bis zum Index
-		 * durchglaufen und die Werte in kontoAuszug geschrieben.
+		 * Hier wird die Liste unserer Buchungen vom Anfang bis Ende durchlaufen
+		 * und die Werte in kontoAuszug geschrieben.
 		 */
-		for (int i = 0; i < index; i++) {
-			kontoAuszug += buchungsListe[i].toString() + "\n";
+		for(Betrag b : buchungsListe) {
+			kontoAuszug += b.toString() + "\n";
 		}
 
 		return kontoAuszug + "------------\n" + "Saldo: " + saldo() + " " + waehrung.getKuerzel();
@@ -164,8 +128,7 @@ class Konto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Arrays.hashCode(buchungsListe);
-		result = prime * result + index;
+		result = prime * result + ((buchungsListe == null) ? 0 : buchungsListe.hashCode());
 		result = prime * result + ((inhaber == null) ? 0 : inhaber.hashCode());
 		result = prime * result + ((waehrung == null) ? 0 : waehrung.hashCode());
 		return result;
@@ -180,9 +143,10 @@ class Konto {
 		if (getClass() != obj.getClass())
 			return false;
 		Konto other = (Konto) obj;
-		if (!Arrays.equals(buchungsListe, other.buchungsListe))
-			return false;
-		if (index != other.index)
+		if (buchungsListe == null) {
+			if (other.buchungsListe != null)
+				return false;
+		} else if (!buchungsListe.equals(other.buchungsListe))
 			return false;
 		if (inhaber == null) {
 			if (other.inhaber != null)

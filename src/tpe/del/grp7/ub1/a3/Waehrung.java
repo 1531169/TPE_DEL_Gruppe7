@@ -36,9 +36,12 @@ class Waehrung {
 	 * @return returns converted amount as type long
 	 */
 	public long umrechnen(long betrag, Waehrung waehrung) {
-		double temp = betrag * this.getKurs();
-		temp = temp / waehrung.getKurs();
-		long result = (long) temp;
+		long result = betrag;
+		if(!this.equals(waehrung)){
+			double temp = betrag * this.getKurs();
+			temp = temp / waehrung.getKurs();
+			result = (long) temp;
+		}
 		return result;		
 	}
 		

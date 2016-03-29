@@ -13,12 +13,12 @@ public class KontoTest extends Waehrungen {
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testConstructorThrowsInvalidArgumentException() {
-		new Konto(null, Waehrungen.euro);
+		new Konto(null, Waehrungen.EURO);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testConstructorThrowsInvalidArgumentExceptionEmptyString() {
-		new Konto("", Waehrungen.euro);
+		new Konto("", Waehrungen.EURO);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -29,7 +29,7 @@ public class KontoTest extends Waehrungen {
 	@Test
 	public void testBucheMitNull() {
 		double expected = 0.0;
-		Konto konto = new Konto("Ferly Loic", Waehrungen.euro);
+		Konto konto = new Konto("Ferly Loic", Waehrungen.EURO);
 		konto.buche(null);
 		Assert.assertEquals(expected, konto.saldo(), 0.001);
 	}
@@ -37,20 +37,20 @@ public class KontoTest extends Waehrungen {
 	@Test
 	public void testBuche() {
 		double expected = 100.0;
-		Konto konto = new Konto("Ferly Loic", Waehrungen.euro);
-		konto.buche(new Betrag(10000, Waehrungen.euro));
+		Konto konto = new Konto("Ferly Loic", Waehrungen.EURO);
+		konto.buche(new Betrag(10000, Waehrungen.EURO));
 		Assert.assertEquals(expected, konto.saldo(), 0.001);
 	}
 
 	@Test
 	public void test() {
 
-		Konto tobias = new Konto("Tobias Brückner", franken);
+		Konto tobias = new Konto("Tobias Brückner", FRANKEN);
 
 		for (int i = 0; i < 6000; i += 1000) {
 			try {
-				tobias.buche(new Betrag(i, franken));
-				tobias.buche(new Betrag(-i, dollar));
+				tobias.buche(new Betrag(i, FRANKEN));
+				tobias.buche(new Betrag(-i, DOLLAR));
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
@@ -72,21 +72,21 @@ public class KontoTest extends Waehrungen {
 
 		try {
 			ferly = new Konto("ferly loic", null);
-			cedric = new Konto(null, euro);
+			cedric = new Konto(null, EURO);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
-			cedric = new Konto("Redric R.", euro);
-			ferly = new Konto("ferly loic", dollar);
+			cedric = new Konto("Redric R.", EURO);
+			ferly = new Konto("ferly loic", DOLLAR);
 		}
 
-		tobias = new Konto("ferly loic", dollar);
+		tobias = new Konto("ferly loic", DOLLAR);
 
 		for (int i = 0; i < 5200; i += 100) {
 			try {
-				ferly.buche(new Betrag(i, dollar));
-				ferly.buche(new Betrag(-i, euro));
-				tobias.buche(new Betrag(i, dollar));
-				tobias.buche(new Betrag(-i, euro));
+				ferly.buche(new Betrag(i, DOLLAR));
+				ferly.buche(new Betrag(-i, EURO));
+				tobias.buche(new Betrag(i, DOLLAR));
+				tobias.buche(new Betrag(-i, EURO));
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
@@ -97,8 +97,8 @@ public class KontoTest extends Waehrungen {
 
 		for (int i = 0; i < 5200; i += 100) {
 			try {
-				cedric.buche(new Betrag(i, euro));
-				cedric.buche(new Betrag(-i, franken));
+				cedric.buche(new Betrag(i, EURO));
+				cedric.buche(new Betrag(-i, FRANKEN));
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}

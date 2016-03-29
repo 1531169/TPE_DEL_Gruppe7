@@ -11,11 +11,9 @@ package tpe.del.grp7.ub1.a3;
  *
  */
 abstract class Waehrungen {
-	
-	public static final Waehrung dollar = new Waehrung("US-Dollar", "$", 1.0000);
-	public static final Waehrung euro = new Waehrung("Euro", "€", 1.2690);
-	public static final Waehrung yen = new Waehrung("Yen", "¥", 0.0091);
-	public static final Waehrung rubel = new Waehrung("Rubel", "RUB", 0.0255);
-	public static final Waehrung franken = new Waehrung("Schweizer Franken", "CHF", 1.0509);
-		
+	public static final Waehrung DOLLAR	 = new Waehrung("US-Dollar", "$", 1.0000);
+	public static final Waehrung EURO	 = new Waehrung("Euro", "€", 1.2690);
+	public static final Waehrung YEN	 = new Waehrung("Yen", "¥", 0.0091);
+	public static final Waehrung RUBEL	 = new Waehrung("Rubel", "RUB", 0.0255);
+	public static final Waehrung FRANKEN = new Waehrung("Schweizer Franken", "CHF", 1.0509);
 }

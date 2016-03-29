@@ -51,11 +51,10 @@ public class KontoTest {
 	
 	@Test
 	public void testBucheNegSaldoNull() {
-		double expected = 0.0;
+		double expected = -8.70;
 		Konto konto = new Konto("Ferly Loic", Waehrungen.EURO);
-		konto.buche(new Betrag(1000, Waehrungen.DOLLAR));
+		konto.buche(new Betrag(-1000, Waehrungen.DOLLAR));
 		konto.buche(new Betrag(-100, Waehrungen.FRANKEN));
-		System.out.println(konto.saldo());
 		Assert.assertEquals(expected, konto.saldo(), 0.001);
 	}
 }

@@ -55,21 +55,24 @@ class Konto {
 	 * place(in a currency that differs to the accounts currency) the amount is
 	 * automatically converted to the prevailing rate in the accounts currency.
 	 *
-	 * @param betrag	amount to book in account
+	 * @param betrag
+	 *            amount to book in account
 	 */
 	void buche(Betrag betrag) {
-		// if there is 
+		// if there is
 		if (betrag != null) {
-			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
-			if(getWaehrung().equals(betrag.getWaehrung())) {
-				buchungsListe.add(betrag);
-			} else {
-				/*
-				 * falls ja, wird den betrag in die richtige Waehrung
-				 * umrechnet und in einer Buchungsliste gespeichert.
-				 */
-				long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), getWaehrung());
-				buchungsListe.add(new Betrag(newBetrag, getWaehrung()));
+			if (betrag.getBetrag() != 0) {
+				// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
+				if (getWaehrung().equals(betrag.getWaehrung())) {
+					buchungsListe.add(betrag);
+				} else {
+					/*
+					 * falls ja, wird den betrag in die richtige Waehrung
+					 * umrechnet und in einer Buchungsliste gespeichert.
+					 */
+					long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), getWaehrung());
+					buchungsListe.add(new Betrag(newBetrag, getWaehrung()));
+				}
 			}
 		}
 	}
@@ -82,10 +85,10 @@ class Konto {
 	double saldo() {
 		Betrag sum = new Betrag(0, getWaehrung());
 		/*
-		 * Hier wird die Liste unserer Buchungen vom Anfang bis 
-		 * Ende durchlaufen und die Werte addiert.
+		 * Hier wird die Liste unserer Buchungen vom Anfang bis Ende durchlaufen
+		 * und die Werte addiert.
 		 */
-		for(Betrag b : buchungsListe) {
+		for (Betrag b : buchungsListe) {
 			sum = sum.addiere(b);
 		}
 		return sum.getAsDouble();
@@ -101,7 +104,7 @@ class Konto {
 	long gebuehren(double promilleZahl) {
 		Betrag saldo = new Betrag(saldo(), getWaehrung());
 		long gebuehr = saldo.promille(promilleZahl).getBetrag();
-		if(gebuehr > 0) {
+		if (gebuehr > 0) {
 			gebuehr *= -1;
 		}
 		buchungsListe.add(new Betrag(gebuehr, getWaehrung()));
@@ -117,7 +120,7 @@ class Konto {
 		 * Hier wird die Liste unserer Buchungen vom Anfang bis Ende durchlaufen
 		 * und die Werte in kontoAuszug geschrieben.
 		 */
-		for(Betrag b : buchungsListe) {
+		for (Betrag b : buchungsListe) {
 			kontoAuszug += b.toString() + "\n";
 		}
 

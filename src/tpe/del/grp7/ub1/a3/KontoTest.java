@@ -19,12 +19,19 @@ public class KontoTest extends Waehrungen {
 	@Test (expected = IllegalArgumentException.class)
 	public void testConstructorThrowsInvalidArgumentExceptionEmptyString() {
 		new Konto("", Waehrungen.euro);
-		// TODO: Ist es erlaub einen leeren String zu übergeben?
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testConstructorThrowsInvalidArgumentException2() {
 		new Konto("Ferly Loic", null);
+	}
+	
+	@Test
+	public void testBucheMitNull() {
+		double expected = 0.0;
+		Konto konto = new Konto("Ferly Loic", Waehrungen.euro);
+		konto.buche(null);
+		Assert.assertEquals(expected, konto.saldo(), 0.001);
 	}
 	
 	@Test
@@ -52,7 +59,7 @@ public class KontoTest extends Waehrungen {
 		
 		try {
 			tobias.gebuehren(50);
-		} catch (IllegalArgumentException e) {
+		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println(e.getMessage());
 			
 		}

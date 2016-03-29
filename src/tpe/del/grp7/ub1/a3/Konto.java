@@ -1,5 +1,7 @@
 package tpe.del.grp7.ub1.a3;
 
+import java.util.Arrays;
+
 /**
  * this class show you how the data will be handled in an account
  * 
@@ -24,7 +26,7 @@ class Konto {
 	 */
 
 	public Konto(String inhaber, Waehrung waehrung) {
-		if (inhaber == null || waehrung == null) {
+		if (inhaber == null || inhaber == "" || waehrung == null) {
 			throw new IllegalArgumentException("inhaber or waehrung can't be null");
 		}
 		this.inhaber = inhaber;
@@ -61,29 +63,35 @@ class Konto {
 
 	public void buche(Betrag betrag) {
 
-		if (this.getWaehrung() == null) {
-			throw new IllegalArgumentException("waehrung des Kontos unbekannt !!!");
-		}
-		/*
-		 * hier wird geprüft, ob die Buchungsliste voll ist (10 Buchungen
-		 * möglich).
-		 */
-		if (index > 9) {
-			throw new IllegalArgumentException("Fehler: größte Anzahl von Buchungen erreicht !!!");
+		if (betrag == null) {
+
 		} else {
-
-			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
-			if (!waehrung.equals(betrag.getWaehrung())) {
-
-				/*
-				 * falls ja, wird den betrag in die richtige Waehrung umrechnet
-				 * und in einer Buchungsliste gespeichert.
-				 */
-
-				long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), waehrung);
-				buchungsListe[index++] = new Betrag(newBetrag, waehrung);
+			if (this.getWaehrung() == null) {
+				throw new IllegalArgumentException("waehrung des Kontos unbekannt !!!");
 			} else {
-				buchungsListe[index++] = betrag;
+
+			}
+			/*
+			 * hier wird geprüft, ob die Buchungsliste voll ist (10 Buchungen
+			 * möglich).
+			 */
+			if (index > 9) {
+				throw new IllegalArgumentException("Fehler: größte Anzahl von Buchungen erreicht !!!");
+			} else {
+
+				// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
+				if (!waehrung.equals(betrag.getWaehrung())) {
+
+					/*
+					 * falls ja, wird den betrag in die richtige Waehrung
+					 * umrechnet und in einer Buchungsliste gespeichert.
+					 */
+
+					long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), waehrung);
+					buchungsListe[index++] = new Betrag(newBetrag, waehrung);
+				} else {
+					buchungsListe[index++] = betrag;
+				}
 			}
 		}
 	}
@@ -120,7 +128,7 @@ class Konto {
 
 	public long gebuehren(double promilleZahl) {
 		if (index > 9) {
-			throw new IllegalArgumentException("Gebuehrenabzug unmöglich. Buchungsliste voll !!!");
+			throw new ArrayIndexOutOfBoundsException("Gebuehrenabzug unmöglich. Buchungsliste voll !!!");
 		} else {
 
 			double abzug = 0;
@@ -153,23 +161,39 @@ class Konto {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-
-		Konto kt = (Konto) obj;
-		if (this.inhaber == kt.inhaber && this.getWaehrung().equals(kt.getWaehrung()) && this.index == kt.index) {
-
-			boolean list = true;
-			Betrag[] listA = this.buchungsListe;
-			Betrag[] listB = kt.buchungsListe;
-
-			for (int i = 0; i < index && list == true; i++) {
-				if (listA[i].getBetrag() != listB[i].getBetrag()) {
-					list = false;
-				}
-			}
-			return list;
-		}
-		return false;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(buchungsListe);
+		result = prime * result + index;
+		result = prime * result + ((inhaber == null) ? 0 : inhaber.hashCode());
+		result = prime * result + ((waehrung == null) ? 0 : waehrung.hashCode());
+		return result;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Konto other = (Konto) obj;
+		if (!Arrays.equals(buchungsListe, other.buchungsListe))
+			return false;
+		if (index != other.index)
+			return false;
+		if (inhaber == null) {
+			if (other.inhaber != null)
+				return false;
+		} else if (!inhaber.equals(other.inhaber))
+			return false;
+		if (waehrung == null) {
+			if (other.waehrung != null)
+				return false;
+		} else if (!waehrung.equals(other.waehrung))
+			return false;
+		return true;
+	}
 }

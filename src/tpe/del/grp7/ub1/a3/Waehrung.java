@@ -1,5 +1,7 @@
 package tpe.del.grp7.ub1.a3;
 
+import java.text.DecimalFormat;
+
 /**
  * In this class there is the data of a currency.
  * 
@@ -74,10 +76,10 @@ class Waehrung {
 	 * @return returns this String
 	 */
 	public String toString() {
-		// TO-DO: Ausgabe des Wechselkurses mit vier Nachkommastellen
-		return name + " [" + kuerzel + "] 1 " + kuerzel + " = " + kurs + " $";
+		DecimalFormat df = new DecimalFormat("0.0000");
+		return name + " [" + kuerzel + "] 1 " + kuerzel + " = " + df.format(kurs) + " $";
 	}
-	
+		
 	/**
 	 * This method calculates a hash value over the object
 	 * 

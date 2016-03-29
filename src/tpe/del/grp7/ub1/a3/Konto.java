@@ -61,15 +61,15 @@ class Konto {
 		// if there is 
 		if (betrag != null) {
 			// hier wird geprüft, ob es einen Unterschied von Waehrung gibt.
-			if(waehrung.equals(betrag.getWaehrung())) {
+			if(getWaehrung().equals(betrag.getWaehrung())) {
 				buchungsListe.add(betrag);
 			} else {
 				/*
 				 * falls ja, wird den betrag in die richtige Waehrung
 				 * umrechnet und in einer Buchungsliste gespeichert.
 				 */
-				long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), waehrung);
-				buchungsListe.add(new Betrag(newBetrag, waehrung));
+				long newBetrag = betrag.getWaehrung().umrechnen(betrag.getBetrag(), getWaehrung());
+				buchungsListe.add(new Betrag(newBetrag, getWaehrung()));
 			}
 		}
 	}
@@ -80,7 +80,7 @@ class Konto {
 	 * @return result is the result back as double.
 	 */
 	double saldo() {
-		Betrag sum = new Betrag(0, waehrung);
+		Betrag sum = new Betrag(0, getWaehrung());
 		/*
 		 * Hier wird die Liste unserer Buchungen vom Anfang bis 
 		 * Ende durchlaufen und die Werte addiert.
@@ -111,7 +111,7 @@ class Konto {
 	@Override
 	public String toString() { // erzeugt ein String für den Kontoauszug.
 
-		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " + waehrung.getName() + "\n------------\n";
+		String kontoAuszug = "Kontoinhaber: " + inhaber + "\nWährung: " + getWaehrung().getName() + "\n------------\n";
 
 		/*
 		 * Hier wird die Liste unserer Buchungen vom Anfang bis Ende durchlaufen
@@ -121,7 +121,7 @@ class Konto {
 			kontoAuszug += b.toString() + "\n";
 		}
 
-		return kontoAuszug + "------------\n" + "Saldo: " + saldo() + " " + waehrung.getKuerzel();
+		return kontoAuszug + "------------\n" + "Saldo: " + saldo() + " " + getWaehrung().getKuerzel();
 	}
 
 	@Override

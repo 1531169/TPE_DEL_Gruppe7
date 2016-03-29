@@ -335,8 +335,8 @@ public class BetragTest {
 	
 	@Test
 	public void testToStringPos() {
-		String expected = "10.00 €";
-		Betrag b = new Betrag(1000, Waehrungen.EURO);
+		String expected = "100.00 €";
+		Betrag b = new Betrag(10000, Waehrungen.EURO);
 		String actual = b.toString();
 		Assert.assertEquals(expected, actual);
 	}

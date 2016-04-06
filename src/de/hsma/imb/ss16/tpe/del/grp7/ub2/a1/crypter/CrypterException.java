@@ -5,4 +5,11 @@ class CrypterException extends Exception {
 
 	public CrypterException (){	
 	}
+
+	public CrypterException(String string) {
+	super(string);
+	}
+	public String getMessage(){
+		return super.getMessage() + ".CrypterException";
+	}
 }

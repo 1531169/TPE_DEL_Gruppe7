@@ -1,4 +1,4 @@
-package tpe.del.grp7.ub1.a3;
+package de.hsma.imb.ss16.tpe.del.grp7.ub1.a3;
 
 /**
  * This class delivers created objects of the class Waehrung,

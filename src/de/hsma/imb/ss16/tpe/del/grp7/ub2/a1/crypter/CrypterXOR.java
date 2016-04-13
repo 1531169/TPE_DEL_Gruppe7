@@ -8,7 +8,6 @@ public class CrypterXOR implements Crypter {
 
 	public CrypterXOR(Key myKey) {
 		this.myKey = myKey.getKey();
-
 	}
 
 	@Override
@@ -27,29 +26,6 @@ public class CrypterXOR implements Crypter {
 	@Override
 	public char entschluesseln(char cypherZeichen) {
 		return verschluesseln(cypherZeichen);
-
-	}
-	public static void main(String[] args) {
-		CrypterXOR cr = new CrypterXOR(new Key("TESTTTT"));
-
-		// String test ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		// String test = "URFVPJB[]ZN^XBJCEBVF@ZRKMJ";
-		String test = "R@AXM";
-		String test2 = "";
-		String test3 = "";
-
-		for (int i = 0; i < test.length(); i++) {
-
-			test2 += cr.verschluesseln(test.charAt(i));
-
-		}
-		System.out.println(test2);
-		cr.reset();
-		for (int i = 0; i < test.length(); i++) {
-			test3 += cr.entschluesseln(test2.charAt(i));
-		}
-		System.out.println(test3);
-		
 	}
 
 }

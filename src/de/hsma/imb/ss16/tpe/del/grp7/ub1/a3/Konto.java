@@ -34,7 +34,7 @@ class Konto {
 	/**
 	 * Method that returns the name of the account holder.
 	 *
-	 * @return inhaber gives the name as a string.
+	 * @return inhaber gives the name as a String.
 	 */
 	String getInhaber() {
 		return inhaber;

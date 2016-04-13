@@ -1,5 +1,6 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 
+
 import java.util.Stack;
 
 
@@ -45,7 +46,7 @@ public class CrypterXOR implements Crypter {
 
 	public static void main (String []args) throws CrypterException{
 	CrypterXOR test = new CrypterXOR(new Key("TOBIASDDGFDJF"));
-	String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	String text = "FERLY";
 	String text2 = "";
 	String text3 = "";
 	for(int i = 0; i < text.length(); i++){

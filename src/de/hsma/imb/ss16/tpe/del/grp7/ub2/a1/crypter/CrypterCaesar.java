@@ -5,11 +5,11 @@ class CrypterCaesar implements Crypter {
 	private final char[] geheimChar = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
 			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
-	private int key;
+	private int key = 1;
 
 	CrypterCaesar(Key myKey) {
 		// TODO: Validierung
-		this.key = getIndex(myKey.getKey().charAt(0));
+		this.key += getIndex(myKey.getKey().charAt(0));
 	}
 
 	private int getKey() {
@@ -20,7 +20,7 @@ class CrypterCaesar implements Crypter {
 		int index = -1;
 		for (int i = 0; i < geheimChar.length; i++) {
 			if (geheimChar[i] == key) {
-				return index = i + 1;
+				return index = i;
 			}
 		}
 		return index;
@@ -28,18 +28,21 @@ class CrypterCaesar implements Crypter {
 
 	@Override
 	public void reset() {
+	}
+
+	@Override
+	public char verschluesseln(char klartextZeichen) {
+//		char space = ' ';
+//		if (klartextZeichen != space) {
+			int newIndex = (getIndex(klartextZeichen) + getKey()) % geheimChar.length;
+			return geheimChar[newIndex];
+//		}
+//		return space;
 
 	}
 
 	@Override
-	public char verschluesseln(char klartextZeichen) throws CrypterException {
-		int newIndex = (getIndex(klartextZeichen) + getKey()) % geheimChar.length;
-		return geheimChar[newIndex];
-
-	}
-
-	@Override
-	public char entschluesseln(char cypherZeichen) throws CrypterException {
+	public char entschluesseln(char cypherZeichen) {
 		int newIndex = (getIndex(cypherZeichen) - getKey());
 		if (newIndex < 0) {
 			newIndex = newIndex + geheimChar.length;

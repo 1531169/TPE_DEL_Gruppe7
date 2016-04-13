@@ -9,8 +9,8 @@ public class CrypterXOR implements Crypter {
 			'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_' };
 
 	public CrypterXOR(Key myKey) throws CrypterException {
-		String text = createKeyText(myKey.getKey());
-		this.myKey = text;
+		
+		this.myKey = myKey.getKey();
 		this.geheimText = createGeheimText(); 
 	}
 	
@@ -29,7 +29,7 @@ public class CrypterXOR implements Crypter {
 	
 	private String createGeheimText() throws CrypterException{
 		String geheim = "";
-		for(int i = 1; i < klarChar.length; i++ ){
+		for(int i = 1; i < klarChar.length-6; i++ ){
 			geheim = geheim + verschluesseln(klarChar[i]);
 		}
 		System.out.println(geheim);
@@ -54,31 +54,43 @@ public class CrypterXOR implements Crypter {
 
 	@Override
 	public char verschluesseln(char klartextZeichen) throws CrypterException {
+		
 		int index = getIndex(klartextZeichen);
-		System.out.println("index = " + index);
-		int index2 = getIndex(myKey.charAt(index-1));
-		System.out.println("index2 = " + index2);
+		int index2 = getIndex(myKey.charAt(0)) ;
 		return klarChar[index^index2];
 	}
 
 	public static void main (String []args) throws CrypterException{
-	CrypterXOR test = new CrypterXOR(new Key("TPERULES"));
-	System.out.println(test.verschluesseln('Z'));
-	System.out.println(test.entschluesseln('J'));
+	CrypterXOR test = new CrypterXOR(new Key("QWERTZUIOPASDFGHJKLYXCVBNM"));
+	String text = "PUFVQ\\RAFZJ_IHHX[Y_MMUAZW";
+	for(int i = 0; i < text.length(); i++){
+		System.out.print(test.entschluesseln(text.charAt(i)));
+		System.out.println();
+	}
+	char t;
+	System.out.println(t = test.verschluesseln('D'));
+	System.out.println(test.entschluesseln(t));
 }
 	@Override
 	public char entschluesseln(char cypherZeichen) throws CrypterException {
-		int i = 0;
-		char zeichen = geheimText.charAt(0);
-		while(zeichen != cypherZeichen){
-			zeichen = geheimText.charAt(++i); 
-		}
 		
-		int index = getIndex(cypherZeichen);
-		System.out.println("index = " + index);
-		int index2 = getIndex(myKey.charAt(i));
-		System.out.println("index2 = " + index2);
-		return klarChar[index^index2];
+		char zeichen = '0';
+		for(int i = 1; i < 27;i++  ){
+			if(verschluesseln(klarChar[i]) == cypherZeichen){
+				return klarChar[i];
+			}
+		}
+		return zeichen;
+		
+//		while(zeichen != cypherZeichen){
+//			zeichen = geheimText.charAt(++i); 
+//		}
+//		
+//		int index = getIndex(cypherZeichen);
+//		System.out.println("index = " + index);
+//		int index2 = getIndex(myKey.charAt(i));
+//		System.out.println("index2 = " + index2);
+//		return klarChar[index^index2];
 	}
 
 }

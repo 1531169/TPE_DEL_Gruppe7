@@ -1,11 +1,14 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+
 /**
  * This class validates the strings for the different encodings and will
  * be used by the encodings. If there is an invalid key it throws an 
  * exception.
  * 
- * @author Cedric
+ * @author Gruppe 7
  *
  */
 class KeyValidator {
@@ -83,5 +86,61 @@ class KeyValidator {
 
 		return false;
 	}
-
+	
+	/*
+	 * ----------------------------------------
+	 * Neue Implementierung
+	 * ----------------------------------------
+	 */
+	private final static String REGEX_A_TO_Z = "[a-zA-Z]+";
+	private KeySettings settings;
+	
+	public KeyValidator() {
+		
+	}
+	
+	public KeyValidator(KeySettings settings) {
+		this.settings = settings;
+	}
+	
+	public void setSettings(KeySettings settings) {
+		this.settings = settings;
+	}
+	
+	public KeySettings getSettings() {
+		return this.settings;
+	}
+	
+	boolean hastCorrectLength(String key) {
+		if(hasMinLength(key) && hasMaxLength(key)) {
+			return true;
+		}
+		return false;
+	}
+	
+	boolean hasMaxLength(String key) {
+		if(!getSettings().isMaxLengthRequired()) {
+			return true;
+		} else {
+			if(key.length() <= getSettings().getMaxLength()) {
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	boolean hasMinLength(String key) {
+		if(!getSettings().isMinLengthRequired()) {
+			return true;
+		} else {
+			if(key.length() >= getSettings().getMinLength()) {
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	boolean isLetterAZ(String key) {
+		return key.matches(settings.getRegexAllowedLetters());
+	}
 }

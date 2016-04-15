@@ -7,15 +7,14 @@ public class CrypterXORTest {
 	Key myKey = new Key("C");
 	@Test
 	public void testVerschluesseln() throws CrypterException{
-		char expecteds = 'D';
+		char expecteds = 'B';
 		CrypterXOR cr = new CrypterXOR(myKey);
 		char actuals = cr.verschluesseln('A');
-		System.out.println(actuals);
 		Assert.assertEquals(expecteds, actuals);
 	}
 	@Test
 	public void testEntschluesslen() throws CrypterException{
-		char expecteds = 'W';
+		char expecteds = 'Y';
 		CrypterXOR cr = new CrypterXOR(myKey);
 		char actuals = cr.entschluesseln('Z');
 		Assert.assertEquals(expecteds, actuals);

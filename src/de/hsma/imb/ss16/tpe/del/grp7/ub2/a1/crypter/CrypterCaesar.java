@@ -1,55 +1,46 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 
 class CrypterCaesar implements Crypter {
-
-	private final char[] geheimChar = {
-			'A', 'B', 'C', 'D', 'E', 'F', 
-			'G', 'H', 'I', 'J', 'K', 'L', 
-			'M', 'N', 'O', 'P', 'Q', 'R', 
-			'S', 'T', 'U', 'V', 'W', 'X', 
-			'Y', 'Z' };
+	
 	private int key = 1;
+	private static final String DEFAULT_TEXT = "letter not allowed";
+	private static final char[] LETTERS = 
+		{ 
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' 
+		};
+	
 
-	CrypterCaesar(Key myKey) {
+	public CrypterCaesar(Key myKey) throws CrypterException {
 		this.key += getIndex(myKey.getKey().charAt(0));
 	}
-
 	private int getKey() {
 		return key;
 	}
-
-	int getIndex(char key) {
-		int index = -1;
-		for (int i = 0; i < geheimChar.length; i++) {
-			if (geheimChar[i] == key) {
-				return index = i;
+	private int getIndex(char letter) throws CrypterException {
+		for (int i = 0; i < LETTERS.length; i++) {
+			if (LETTERS[i] == letter) {
+				return i;
 			}
 		}
-		return index;
+		throw new CrypterException(DEFAULT_TEXT);
 	}
-
 	@Override
 	public void reset() {
 	}
-
 	@Override
-	public char verschluesseln(char klartextZeichen) {
-//		char space = ' ';
-//		if (klartextZeichen != space) {
-			int newIndex = (getIndex(klartextZeichen) + getKey()) % geheimChar.length;
-			return geheimChar[newIndex];
-//		}
-//		return space;
-
+	public char verschluesseln(char klartextZeichen) throws CrypterException {
+		int index = getIndex(klartextZeichen);
+		int newIndex = (index + getKey()) % LETTERS.length;
+		return LETTERS[newIndex];
 	}
-
 	@Override
-	public char entschluesseln(char cypherZeichen) {
-		int newIndex = (getIndex(cypherZeichen) - getKey());
+	public char entschluesseln(char cypherZeichen) throws CrypterException {
+		int index = getIndex(cypherZeichen);
+		int newIndex = (index - getKey());
 		if (newIndex < 0) {
-			newIndex = newIndex + geheimChar.length;
+			newIndex = newIndex + LETTERS.length;
 		}
-		return geheimChar[newIndex];
+		return LETTERS[newIndex];
 	}
-
 }

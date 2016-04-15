@@ -4,53 +4,29 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class CrypterSaesarTest {
-
+	Key myKey = new Key("C");
 	@Test
-	public void testVerschluesseln(){
+	public void testVerschluesseln() throws CrypterException{
 		char expecteds = 'D';
-		Key myKey = new Key("C");
 		CrypterCaesar cr = new CrypterCaesar(myKey);
 		char actuals = cr.verschluesseln('A');
 		Assert.assertEquals(expecteds, actuals);
 	}
 	@Test
-	public void testEntschluesslen(){
+	public void testEntschluesslen() throws CrypterException{
 		char expecteds = 'W';
-		Key myKey = new Key("C");
 		CrypterCaesar cr = new CrypterCaesar(myKey);
 		char actuals = cr.entschluesseln('Z');
 		Assert.assertEquals(expecteds, actuals);
 	}
-	@Test
-	public void testTextVerschuesseln(){
-		String expecteds = "DEFGHIJKLMNOPQRSTUVWXYZABC";
-		Key myKey = new Key("C");
+	@Test(expected = CrypterException.class)
+	public void notAllowedCharVerschluesseln() throws CrypterException{
 		CrypterCaesar cr = new CrypterCaesar(myKey);
-		String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String actuals = "";
-		for (int i = 0; i < text.length(); i++) {
-			actuals += cr.verschluesseln(text.charAt(i));
-		}
-		Assert.assertEquals(expecteds, actuals);
+		cr.verschluesseln('a');
 	}
-	@Test
-	public void testTextEntschuesseln(){
-		String expecteds = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		Key myKey = new Key("C");
+	@Test(expected = CrypterException.class)
+	public void notAllowedCharEntschluesseln() throws CrypterException{
 		CrypterCaesar cr = new CrypterCaesar(myKey);
-		String text = "DEFGHIJKLMNOPQRSTUVWXYZABC";
-		String actuals = "";
-		for (int i = 0; i < text.length(); i++) {
-			actuals += cr.entschluesseln(text.charAt(i));
-		}
-		Assert.assertEquals(expecteds, actuals);
-	}
-	@Test
-	public void notAllowedCharVerschluesseln(){
-//		char expecteds = 'D';
-		Key myKey = new Key("C");
-		CrypterCaesar cr = new CrypterCaesar(myKey);
-		char actuals = cr.verschluesseln('0');
-//		Assert.assertEquals(expecteds, actuals);
+		cr.entschluesseln('0');
 	}
 }

@@ -15,18 +15,18 @@ public class CrypterSaesarTest {
 	}
 	@Test
 	public void testEntschluesslen(){
-		char expecteds = 'A';
+		char expecteds = 'W';
 		Key myKey = new Key("C");
 		CrypterCaesar cr = new CrypterCaesar(myKey);
-		char actuals = cr.entschluesseln('D');
+		char actuals = cr.entschluesseln('Z');
 		Assert.assertEquals(expecteds, actuals);
 	}
 	@Test
 	public void testTextVerschuesseln(){
-		String expecteds = "D EFGHIJKLMNOPQRSTUVWXYZABC";
+		String expecteds = "DEFGHIJKLMNOPQRSTUVWXYZABC";
 		Key myKey = new Key("C");
 		CrypterCaesar cr = new CrypterCaesar(myKey);
-		String text = "A BCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String actuals = "";
 		for (int i = 0; i < text.length(); i++) {
 			actuals += cr.verschluesseln(text.charAt(i));
@@ -51,24 +51,6 @@ public class CrypterSaesarTest {
 		Key myKey = new Key("C");
 		CrypterCaesar cr = new CrypterCaesar(myKey);
 		char actuals = cr.verschluesseln('0');
-		System.out.println(actuals);
 //		Assert.assertEquals(expecteds, actuals);
 	}
-		
-/*
-		Key myKey = new Key("C");
-		CrypterCaesar cr = new CrypterCaesar(myKey);
-		String text1 = "ABCDEFGHIJKLMNOPQRZTUVWXYZ";
-		String text2 = "";
-		for (int i = 0; i < text1.length(); i++) {
-			text2 += cr.verschluesseln(text1.charAt(i));
-		}
-		System.out.println(text2);
-		text1 = "";
-		for (int i = 0; i < text2.length(); i++) {
-			text1 += cr.entschluesseln(text2.charAt(i));
-		}
-		System.out.println(text1);
-
-	*/
 }

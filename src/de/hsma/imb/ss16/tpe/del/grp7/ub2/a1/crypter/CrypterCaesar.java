@@ -2,13 +2,15 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 
 class CrypterCaesar implements Crypter {
 
-	private final char[] geheimChar = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-
+	private final char[] geheimChar = {
+			'A', 'B', 'C', 'D', 'E', 'F', 
+			'G', 'H', 'I', 'J', 'K', 'L', 
+			'M', 'N', 'O', 'P', 'Q', 'R', 
+			'S', 'T', 'U', 'V', 'W', 'X', 
+			'Y', 'Z' };
 	private int key = 1;
 
 	CrypterCaesar(Key myKey) {
-		// TODO: Validierung
 		this.key += getIndex(myKey.getKey().charAt(0));
 	}
 

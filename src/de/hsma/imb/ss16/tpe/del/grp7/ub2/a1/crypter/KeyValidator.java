@@ -28,7 +28,7 @@ class KeyValidator {
 	private static final String EX_STRING_INVALID_LETTERS =
 			"Key doesn't contain only upper case letters from A-Z.";
 	private static final String EX_STRING_DUPLICATE_LETTERS = 
-			"";
+			"Key contains duplicate letters.";
 
 	static boolean isValid(String key, CrypterType type) 
 			throws InvalidKeyException {

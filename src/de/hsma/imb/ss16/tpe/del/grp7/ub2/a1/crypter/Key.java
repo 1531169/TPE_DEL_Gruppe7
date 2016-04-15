@@ -11,16 +11,16 @@ class Key {
 	/**
 	 * Key for the encodings.
 	 */
-	private String myKey;
+	private String key;
 
 	/**
-	 * Constructs a Key with a given key.
+	 * Constructs a key with a given key.
 	 * 
-	 * @param myKeyString
+	 * @param key
 	 *            used for encode
 	 */
-	Key(String myKeyString) {
-		this.myKey = myKeyString;
+	Key(String key) {
+		this.key = key;
 	}
 
 	/**
@@ -29,6 +29,6 @@ class Key {
 	 * @return stored key
 	 */
 	String getKey() {
-		return myKey;
+		return key;
 	}
 }

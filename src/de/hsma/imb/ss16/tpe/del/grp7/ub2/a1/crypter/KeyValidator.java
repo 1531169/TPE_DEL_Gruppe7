@@ -15,6 +15,7 @@ class KeyValidator {
 	private static final int SUBSTITUTION_MAX_LENGTH = 26;
 	private static final int XOR_MIN_LENGTH = 1;
 	private static final int XOR_MAX_LENGTH = -1;
+	private static final int KEY_MAX_COUNT_DUPLICATE_LETTERS = 1;
 	private static final String REGEX_LETTER_A_TO_Z = "[A-Z]+";
 	private static final char[] LETTERS = {
 			'A', 'B', 'C', 'D', 'E', 'F', 
@@ -26,6 +27,8 @@ class KeyValidator {
 			"Size of key is not valid.";
 	private static final String EX_STRING_INVALID_LETTERS =
 			"Key doesn't contain only upper case letters from A-Z.";
+	private static final String EX_STRING_DUPLICATE_LETTERS = 
+			"";
 
 	static boolean isValid(String key, CrypterType type) 
 			throws InvalidKeyException {
@@ -52,12 +55,15 @@ class KeyValidator {
 
 	static boolean isValidSubstitutionKey(String key) 
 			throws InvalidKeyException {
+		if(hasDuplicateLetter(key)) {
+			throw new InvalidKeyException(EX_STRING_DUPLICATE_LETTERS);
+		}
 		return isValidByLengthAndLetters(key, 
-				SUBSTITUTION_MIN_LENGTH, SUBSTITUTION_MAX_LENGTH) 
-				&& !hasDuplicateLetter(key);
+				SUBSTITUTION_MIN_LENGTH, SUBSTITUTION_MAX_LENGTH);
 	}
 
-	static boolean isValidXORKey(String key) throws InvalidKeyException {
+	static boolean isValidXORKey(String key) 
+			throws InvalidKeyException {
 		return isValidByLengthAndLetters(key, 
 				XOR_MIN_LENGTH, XOR_MAX_LENGTH);
 	}
@@ -125,7 +131,7 @@ class KeyValidator {
 				}
 				
 				// if any letter multiple in string => stop
-				if(counter > 1) {
+				if(counter > KEY_MAX_COUNT_DUPLICATE_LETTERS) {
 					return true;
 				}
 			}

@@ -3,7 +3,7 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CrypterSaesarTest {
+public class CrypterCaesarTest {
 	Key myKey = new Key("C");
 	@Test
 	public void testVerschluesseln() throws CrypterException{

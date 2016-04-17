@@ -1,19 +1,28 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 
 public class Main {
-
+	
 	public static void main(String[] args) throws CrypterException, InvalidKeyException {
-		
 		String klar = "";		
 		String botschaft = "SS\\RMOUG\\XR\\K_HDPJY]T\\XP\\^B\\_";
-		StringCrypter strcr = new StringCrypter(CrypterFactory.getCrypter(CrypterType.XOR, "EINSCHLUESSEL"));
-		klar = strcr.entschlüsselnStr(botschaft);
-		strcr.setCr(CrypterFactory.getCrypter(CrypterType.CAESAR, "V"));
-		klar = strcr.entschlüsselnStr(klar);
-		strcr.setCr(CrypterFactory.getCrypter(CrypterType.SUBSTITUTION, "MNBVCXYLKJHGFDSAPOIUZTREWQ"));
-		klar = strcr.entschlüsselnStr(klar);
-		System.out.println(klar);
 		
+		// do xor decrypt
+		Crypter cr = CrypterFactory.getCrypter(CrypterType.XOR, "EINSCHLUESSEL");
+		StringCrypter strcr = new StringCrypter(cr);
+		klar = strcr.entschlüsselnStr(botschaft);
+		
+		// do caesar decrypt
+		cr = CrypterFactory.getCrypter(CrypterType.CAESAR, "V");
+		strcr.setCr(cr);
+		klar = strcr.entschlüsselnStr(klar);
+		
+		// do substitution decrypt
+		cr = CrypterFactory.getCrypter(
+				CrypterType.SUBSTITUTION, "MNBVCXYLKJHGFDSAPOIUZTREWQ");
+		strcr.setCr(cr);
+		klar = strcr.entschlüsselnStr(klar);
+		
+		// show end result
+		System.out.println(klar);
 	}
-
 }

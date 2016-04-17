@@ -15,7 +15,7 @@ public class StringCrypter {
 	 * 
 	 * @param crypter  Crypter that should be used
 	 */
-	public StringCrypter(Crypter crypter){
+	public StringCrypter(Crypter crypter) {
 		cr = crypter;
 	}
 	

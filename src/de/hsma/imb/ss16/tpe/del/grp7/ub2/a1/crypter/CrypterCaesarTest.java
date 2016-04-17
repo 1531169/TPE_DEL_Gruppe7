@@ -13,7 +13,7 @@ public class CrypterCaesarTest {
 		Assert.assertEquals(expecteds, actuals);
 	}
 	@Test
-	public void testEntschluesslen() throws CrypterException{
+	public void testEntschluesseln() throws CrypterException{
 		char expecteds = 'W';
 		CrypterCaesar cr = new CrypterCaesar(myKey);
 		char actuals = cr.entschluesseln('Z');

@@ -2,8 +2,6 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter.tests;
 
 import static org.junit.Assert.*;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 import org.junit.Before;
 import org.junit.Test;
 

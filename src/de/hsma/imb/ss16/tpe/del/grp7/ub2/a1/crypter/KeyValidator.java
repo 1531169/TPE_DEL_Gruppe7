@@ -9,43 +9,52 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
  */
 class KeyValidator {
 	/**
-	 * 
+	 * The value specifies that there is no minimum of maximum.
 	 */
 	private static final int KEY_ANY_SIZE_VALUE = -1;
 	/**
-	 * 
+	 * Specifies that the length for the keys for CaesarCrypter
+	 * has a minimum length of one letter.
 	 */
 	private static final int CAESAR_MIN_LENGTH = 1;
 	/**
-	 * 
+	 * Specifies that the length for the keys for CaesarCrypter
+	 * has a maximum length of one letter.
 	 */
 	private static final int CAESAR_MAX_LENGTH = 1;
 	/**
-	 * 
+	 * Specifies that the length for the keys for SubstitutionCrypter
+	 * has a minimum length of 26 letters.
 	 */
 	private static final int SUBSTITUTION_MIN_LENGTH = 26;
 	/**
-	 * 
+	 * Specifies that the length for the keys for SubstitutionCrypter 
+	 * has a maximum length of 26 letters.
 	 */
 	private static final int SUBSTITUTION_MAX_LENGTH = 26;
 	/**
-	 * 
+	 * Specifies that the length for the keys for XORCrypter has
+	 * a minimum length of one letter.
 	 */
 	private static final int XOR_MIN_LENGTH = 1;
 	/**
-	 * 
+	 * Specifies that the length for the keys for XORCrypter has no
+	 * maximum.
 	 */
 	private static final int XOR_MAX_LENGTH = -1;
 	/**
-	 * 
+	 * This const. specifies whether a key can contain every letter 
+	 * only one time.
 	 */
 	private static final int KEY_MAX_COUNT_DUPLICATE_LETTERS = 1;
 	/**
-	 * 
+	 * Regular expression to look whether a key contains only 
+	 * letters from A-Z in upper case form.
 	 */
 	private static final String REGEX_LETTER_A_TO_Z = "[A-Z]+";
 	/**
-	 * 
+	 * Contains the german alphabet letters in upper case form. Special 
+	 * letters are not inside.
 	 */
 	private static final char[] LETTERS = { 
 			'A', 'B', 'C', 'D', 'E', 'F', 
@@ -54,17 +63,19 @@ class KeyValidator {
 			'S', 'T', 'U', 'V', 'W', 'X', 
 			'Y', 'Z' };
 	/**
-	 * 
+	 * Exceptions message if the length of the array is not in the 
+	 * right length.
 	 */
 	private static final String EX_STRING_INVALID_LENGTH = 
 			"Size of key is not valid.";
 	/**
-	 * 
+	 * Exception message if key contains letters which are not 
+	 * in the array of {@link KeyValidator#LETTERS LETTERS}.
 	 */
 	private static final String EX_STRING_INVALID_LETTERS = 
 			"Key doesn't contain only upper case letters from A-Z.";
 	/**
-	 * 
+	 * Exception message if duplicate letters are in the key.
 	 */
 	private static final String EX_STRING_DUPLICATE_LETTERS = 
 			"Key contains duplicate letters.";

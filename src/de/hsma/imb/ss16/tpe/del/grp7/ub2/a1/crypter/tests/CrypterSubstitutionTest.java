@@ -1,32 +1,41 @@
-package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
+package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter.tests;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
-public class CrypterXORTest {
-	Key myKey = new Key("C");
+import de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter.*;
+
+public class CrypterSubstitutionTest {
+	
+	Key myKey;
+	Crypter cr;
+	
+	@Before
+	public void initCrypter() throws CrypterException, 
+		InvalidKeyException {
+		myKey = new Key("CYQAXWSEDVRFBTGNZHMUJIKOLP");
+		cr = CrypterFactory.getCrypter(CrypterType.SUBSTITUTION, myKey.getKey());
+	}
+	
 	@Test
 	public void testVerschluesseln() throws CrypterException{
-		char expecteds = 'B';
-		CrypterXOR cr = new CrypterXOR(myKey);
+		char expecteds = 'C';
 		char actuals = cr.verschluesseln('A');
 		Assert.assertEquals(expecteds, actuals);
 	}
 	@Test
 	public void testEntschluesslen() throws CrypterException{
-		char expecteds = 'Y';
-		CrypterXOR cr = new CrypterXOR(myKey);
-		char actuals = cr.entschluesseln('Z');
+		char expecteds = 'A';
+		char actuals = cr.entschluesseln('C');
 		Assert.assertEquals(expecteds, actuals);
 	}
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharVerschluesseln() throws CrypterException{
-		CrypterXOR cr = new CrypterXOR(myKey);
 		cr.verschluesseln('a');
 	}
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharEntschluesseln() throws CrypterException{
-		CrypterXOR cr = new CrypterXOR(myKey);
-		cr.entschluesseln('0');
+		cr.entschluesseln('a');
 	}
 }

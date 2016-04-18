@@ -6,7 +6,7 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
  * 
  * @author Gruppe 7
  */
-class CrypterFactory {
+public class CrypterFactory {
 
 	/**
 	 * Creates an crypter object depending on the given crypter type and

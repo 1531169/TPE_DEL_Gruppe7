@@ -6,7 +6,7 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
  * @author Gruppe 7
  *
  */
-class Key {
+public class Key {
 
 	/**
 	 * Key for the encodings.
@@ -19,7 +19,7 @@ class Key {
 	 * @param key
 	 *            used for encode
 	 */
-	Key(String key) {
+	public Key(String key) {
 		this.key = key;
 	}
 
@@ -28,7 +28,7 @@ class Key {
 	 * 
 	 * @return stored key
 	 */
-	String getKey() {
+	public String getKey() {
 		return key;
 	}
 }

@@ -7,6 +7,6 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
  * @author Gruppe 7
  *
  */
-enum CrypterType {
+public enum CrypterType {
 	CAESAR, SUBSTITUTION, XOR;
 }

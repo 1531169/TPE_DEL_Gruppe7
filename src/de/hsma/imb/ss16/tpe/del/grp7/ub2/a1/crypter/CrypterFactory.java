@@ -16,7 +16,7 @@ class CrypterFactory {
 	 *            selects the cryption
 	 * @param key
 	 *            contains the key for the cryption
-	 * @return crypter object
+	 * @return Crypter which contains the hidden encryption object
 	 * @throws CrypterException
 	 * @throws InvalidKeyException
 	 */

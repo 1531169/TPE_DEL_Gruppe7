@@ -1,5 +1,11 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
 
+/**
+ * Starts the programm to encrypt the message in the excercicse.
+ * 
+ * @author Gruppe 7
+ *
+ */
 public class Main {
 	
 	public static void main(String[] args) throws CrypterException, InvalidKeyException {

@@ -7,6 +7,7 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
  * @author Gruppe 7
  *
  */
+@SuppressWarnings("serial")
 public class CrypterException extends Exception {
 
 	/**

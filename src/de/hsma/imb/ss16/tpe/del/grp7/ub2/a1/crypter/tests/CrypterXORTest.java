@@ -36,6 +36,7 @@ public class CrypterXORTest {
 	public void notAllowedCharVerschluesseln() throws CrypterException{
 		cr.verschluesseln('a');
 	}
+	
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharEntschluesseln() throws CrypterException{
 		cr.entschluesseln('0');

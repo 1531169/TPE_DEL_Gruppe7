@@ -35,6 +35,11 @@ class CrypterCaesar implements Crypter {
 			'M', 'N', 'O', 'P', 'Q', 'R', 
 			'S', 'T', 'U', 'V', 'W', 'X', 
 			'Y', 'Z' };
+	/**
+	 * Exception message if no key was set.
+	 */
+	private static final String EX_STRING_NO_KEY = 
+			"Given key is null.";
 	
 	/**
 	 * Contructs the CrypterCaesar with the given key.
@@ -45,7 +50,9 @@ class CrypterCaesar implements Crypter {
 	 *             will be thrown if the key is not valid
 	 */
 	public CrypterCaesar(Key myKey) throws CrypterException {
-		// TODO: what if key is null
+		if(myKey == null) {
+			throw new CrypterException(EX_STRING_NO_KEY);
+		}
 		// create initial index
 		this.key = SHIFT_INDEX + getIndex(myKey.getKey().charAt(FIRST_INDEX));
 	}

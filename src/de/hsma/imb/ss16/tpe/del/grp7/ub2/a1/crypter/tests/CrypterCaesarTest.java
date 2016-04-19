@@ -28,12 +28,32 @@ public class CrypterCaesarTest {
 		char actuals = cr.entschluesseln('Z');
 		Assert.assertEquals(expecteds, actuals);
 	}
+	
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharVerschluesseln() throws CrypterException{
 		cr.verschluesseln('a');
 	}
+	
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharEntschluesseln() throws CrypterException{
 		cr.entschluesseln('0');
+	}
+	
+	@Test (expected = InvalidKeyException.class)
+	public void testNullableKeyGiven() throws CrypterException, 
+			InvalidKeyException {
+		CrypterFactory.getCrypter(CrypterType.CAESAR, null);	
+	}
+	
+	@Test (expected = InvalidKeyException.class)
+	public void testKeyObjHasEmptyString() throws CrypterException, 
+			InvalidKeyException {
+		CrypterFactory.getCrypter(CrypterType.CAESAR, "");
+	}
+	
+	@Test (expected = CrypterException.class)
+	public void testCrypterTypeIsNull() throws CrypterException, 
+			InvalidKeyException {
+		CrypterFactory.getCrypter(null, "A");
 	}
 }

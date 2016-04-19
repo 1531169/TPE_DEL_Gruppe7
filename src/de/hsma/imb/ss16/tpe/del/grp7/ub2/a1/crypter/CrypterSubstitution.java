@@ -26,15 +26,23 @@ class CrypterSubstitution implements Crypter {
 			'M', 'N', 'O', 'P', 'Q', 'R', 
 			'S', 'T', 'U', 'V', 'W', 'X', 
 			'Y', 'Z' };
+	/**
+	 * Exception message if no key was set.
+	 */
+	private static final String EX_STRING_NO_KEY = 
+			"Given key is null.";
 
 	/**
 	 * Constructs a new CrypterSubstitution and set direclty the key.
 	 * 
 	 * @param myKey
 	 *            key for encryption
+	 * @throws CrypterException will be thrown if key is null
 	 */
-	public CrypterSubstitution(Key myKey) {
-		// TODO: what if key is null
+	public CrypterSubstitution(Key myKey) throws CrypterException {
+		if(myKey == null) {
+			throw new CrypterException(EX_STRING_NO_KEY);
+		}
 		this.myKey = myKey.getKey().toCharArray();
 	}
 

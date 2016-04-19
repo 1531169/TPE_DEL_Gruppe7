@@ -25,15 +25,23 @@ class CrypterXOR implements Crypter {
 	 * the letter (used for encryption or decryption) in the key.
 	 */
 	private int index = 0;
+	/**
+	 * Exception message if no key was set.
+	 */
+	private static final String EX_STRING_NO_KEY = 
+			"Given key is null.";
 
 	/**
 	 * Contructs the XORCrypter with the given key.
 	 * 
 	 * @param myKey
 	 *            is used for the encryption/decryption
+	 * @throws CrypterException	will be thrown if key is null
 	 */
-	public CrypterXOR(Key myKey) {
-		// TODO: what if key is null
+	public CrypterXOR(Key myKey) throws CrypterException {
+		if(myKey == null) {
+			throw new CrypterException(EX_STRING_NO_KEY);
+		}
 		this.myKey = myKey.getKey();
 	}
 

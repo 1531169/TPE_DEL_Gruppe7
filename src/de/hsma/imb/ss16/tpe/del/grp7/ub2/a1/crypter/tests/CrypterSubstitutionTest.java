@@ -15,7 +15,8 @@ public class CrypterSubstitutionTest {
 	public void initCrypter() throws CrypterException, 
 		InvalidKeyException {
 		myKey = new Key("CYQAXWSEDVRFBTGNZHMUJIKOLP");
-		cr = CrypterFactory.getCrypter(CrypterType.SUBSTITUTION, myKey.getKey());
+		cr = CrypterFactory.getCrypter(CrypterType.SUBSTITUTION, 
+				myKey.getKey());
 	}
 	
 	@Test
@@ -30,10 +31,12 @@ public class CrypterSubstitutionTest {
 		char actuals = cr.entschluesseln('C');
 		Assert.assertEquals(expecteds, actuals);
 	}
+	
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharVerschluesseln() throws CrypterException{
 		cr.verschluesseln('a');
 	}
+	
 	@Test(expected = CrypterException.class)
 	public void notAllowedCharEntschluesseln() throws CrypterException{
 		cr.entschluesseln('a');

@@ -7,7 +7,22 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter;
  * @author Gruppe 7
  */
 public class CrypterFactory {
-
+	/**
+	 * Exception message if given key is null. 
+	 */
+	private static final String EX_STRING_NO_KEY =
+			"Given key is null.";
+	/**
+	 * Exception message if given key is not valid.
+	 */
+	private static final String EX_STRING_INVALID_KEY = 
+			"The given key is not valid.";
+	/**
+	 * Exception message if the given KeyType is null.
+	 */
+	private static final String EX_STRING_NO_KEY_TYPE = 
+			"The given type is null.";
+	
 	/**
 	 * Creates an crypter object depending on the given crypter type and
 	 * validates the key for the different cryptions.
@@ -22,10 +37,18 @@ public class CrypterFactory {
 	 */
 	public static Crypter getCrypter(CrypterType type, String key)
 			throws CrypterException, InvalidKeyException {
+		if(key == null) {
+			throw new InvalidKeyException(EX_STRING_NO_KEY);
+		}
+		
+		if(type == null) {
+			throw new CrypterException(EX_STRING_NO_KEY_TYPE);
+		}
+		
 		key = key.toUpperCase();
 		// check by type
 		if (!KeyValidator.isValid(key, type)) {
-			return null;
+			throw new InvalidKeyException(EX_STRING_INVALID_KEY);
 		}
 		
 		Key myKey = new Key(key);

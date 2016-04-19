@@ -30,5 +30,30 @@ public class StringCrypterTest {
 		
 		assertEquals(expected, klar);
 	}
+	
+	@Test
+	public void testAufgabeFReverse() throws CrypterException, InvalidKeyException {
+		String expected = "SS\\RMOUG\\XR\\K_HDPJY]T\\XP\\^B\\_";
+		String geheim = "";
+		String botschaft = "UNDXWIEDERXEINXBLATTXERLEDIGT";
+		
+		//do substitution encrypt 
+		Crypter cr = CrypterFactory.getCrypter(
+				CrypterType.SUBSTITUTION, "MNBVCXYLKJHGFDSAPOIUZTREWQ");
+		StringCrypter strcr = new StringCrypter(cr);
+		geheim = strcr.verschlüsselnStr(botschaft);
+		
+		//do caesar encrypt
+		cr = CrypterFactory.getCrypter(CrypterType.CAESAR, "V");
+		strcr.setCr(cr);
+		geheim = strcr.verschlüsselnStr(geheim);
+		
+		//do xor encrypt
+		cr = CrypterFactory.getCrypter(CrypterType.XOR, "EINSCHLUESSEL");
+		strcr.setCr(cr);
+		geheim = strcr.verschlüsselnStr(geheim);
+		
+		assertEquals(expected, geheim);
+	}
 
 }

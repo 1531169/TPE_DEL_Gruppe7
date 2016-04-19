@@ -109,7 +109,7 @@ class KeyValidator {
 	}
 
 	/**
-	 * Checks key for XOR Crypter. See in method:
+	 * Checks key for Caesar Crypter. See in method:
 	 * {@link KeyValidator#isValidByLengthAndLetters(String, int, int)
 	 * isValidByLengthAndLetters}
 	 * 

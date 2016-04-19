@@ -15,18 +15,18 @@ public class StringCrypterTest {
 		// do xor decrypt
 		Crypter cr = CrypterFactory.getCrypter(CrypterType.XOR, "EINSCHLUESSEL");
 		StringCrypter strcr = new StringCrypter(cr);
-		klar = strcr.entschlüsselnStr(botschaft);
+		klar = strcr.entschluesselnStr(botschaft);
 		
 		// do caesar decrypt
 		cr = CrypterFactory.getCrypter(CrypterType.CAESAR, "V");
 		strcr.setCr(cr);
-		klar = strcr.entschlüsselnStr(klar);
+		klar = strcr.entschluesselnStr(klar);
 		
 		// do substitution decrypt
 		cr = CrypterFactory.getCrypter(
 				CrypterType.SUBSTITUTION, "MNBVCXYLKJHGFDSAPOIUZTREWQ");
 		strcr.setCr(cr);
-		klar = strcr.entschlüsselnStr(klar);
+		klar = strcr.entschluesselnStr(klar);
 		
 		assertEquals(expected, klar);
 	}
@@ -41,17 +41,17 @@ public class StringCrypterTest {
 		Crypter cr = CrypterFactory.getCrypter(
 				CrypterType.SUBSTITUTION, "MNBVCXYLKJHGFDSAPOIUZTREWQ");
 		StringCrypter strcr = new StringCrypter(cr);
-		geheim = strcr.verschlüsselnStr(botschaft);
+		geheim = strcr.verschluesselnStr(botschaft);
 		
 		//do caesar encrypt
 		cr = CrypterFactory.getCrypter(CrypterType.CAESAR, "V");
 		strcr.setCr(cr);
-		geheim = strcr.verschlüsselnStr(geheim);
+		geheim = strcr.verschluesselnStr(geheim);
 		
 		//do xor encrypt
 		cr = CrypterFactory.getCrypter(CrypterType.XOR, "EINSCHLUESSEL");
 		strcr.setCr(cr);
-		geheim = strcr.verschlüsselnStr(geheim);
+		geheim = strcr.verschluesselnStr(geheim);
 		
 		assertEquals(expected, geheim);
 	}

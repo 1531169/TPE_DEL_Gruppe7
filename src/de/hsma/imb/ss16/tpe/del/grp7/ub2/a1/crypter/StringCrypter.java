@@ -25,7 +25,7 @@ public class StringCrypter {
 	 * @param klartext  text that should be encrypted
 	 * @return  encrypted text
 	 */
-	public String verschlüsselnStr(String klartext) throws CrypterException{
+	public String verschluesselnStr(String klartext) throws CrypterException{
 		String result = "";
 		for(int i = 0; i < klartext.length(); i++){
 			result += cr.verschluesseln(klartext.charAt(i));
@@ -40,7 +40,7 @@ public class StringCrypter {
 	 * @param cyphertext  text that should be decrypted
 	 * @return  decrypted text
 	 */
-	public String entschlüsselnStr(String cyphertext) throws CrypterException{
+	public String entschluesselnStr(String cyphertext) throws CrypterException{
 		String result = "";
 		for(int i = 0; i < cyphertext.length(); i++){
 			result += cr.entschluesseln(cyphertext.charAt(i));

@@ -1,40 +1,68 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub3.a1;
 
-public class Member {
+import java.security.InvalidParameterException;
+
+public class Member implements Comparable<Member>{
+	
 	private int memberID;
 	private String surname;
 	private String firstname;
 	private int memberYears;
-	public Member(int memberID, String surname, String givenName, int memberYears) {
+	
+	public Member(int memberID, String surname, String givenName, int memberYears) throws InvalidParameterException {
+		
 		if(memberID < 0){
-			throw new InvalidMemberException();
+			throw new InvalidParameterException();
 		}
 		this.memberID = memberID;
 		this.surname = surname;
 		this.firstname = givenName;
 		this.memberYears = memberYears;
 	}
+	
 	public String getSurname() {
 		return surname;
 	}
+	
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
+	
 	public String getGivenName() {
 		return firstname;
 	}
+	
 	public void setGivenName(String givenName) {
 		this.firstname = givenName;
 	}
+	
 	public int getMemberYears() {
 		return memberYears;
 	}
+	
 	public void setMemberYears(int memberYears) {
 		this.memberYears = memberYears;
 	}
+	
 	public int getMemberID() {
 		return memberID;
 	}
+	
+	public int compareTo(Member m) {
+		
+		if(this.getMemberID() == m.getMemberID()) {
+			return 0;
+		}
+		
+		else if(this.getMemberID() > m.getMemberID()) {
+			return -1;
+		}
+		
+		else {
+			return -1;
+		}		
+	}
+	
 	@Override
 	public String toString() {
 		return memberID + "\t" + firstname + "\t\t" + surname

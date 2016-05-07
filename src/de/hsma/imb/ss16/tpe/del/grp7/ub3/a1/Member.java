@@ -71,7 +71,7 @@ public class Member implements Comparable<Member>{
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	public static void removeId(int memberId){
+	public static void removeId(Object memberId){
 		listId.remove(memberId);
 	}
 	

@@ -74,5 +74,5 @@ public class MemberTest {
 		new Member(10, "Musterman", "Man1", 2);
 		new Member(10, "Musterman", "Man2", 2);
 	}
-	
+
 }

@@ -1,7 +1,12 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub3.a1;
 
-import java.util.Iterator;
-
+/**
+ * This class represents a test environment for the club 
+ * software to demonstrate its use
+ * 
+ * @author Gruppe 7
+ *
+ */
 public class ClubManagement {
 
 	public static void main(String []args) {
@@ -10,6 +15,10 @@ public class ClubManagement {
 		
 	}
 	
+	/**
+	 * In this method there are some example actions 
+	 * to demonstrate the use of the club software
+	 */
 	public static void test1() {
 		
 		MembershipList list1 = new MembershipList();		
@@ -21,10 +30,7 @@ public class ClubManagement {
 		
 		System.out.println("Länge der Vereinsliste: " + list1.size());
 		
-		Iterator<Member> it1 = list1.iterator();
-		while(it1.hasNext()){
-			System.out.println(it1.next());
-		}
+		System.out.println(list1);
 		
 		list1.remove(2);
 		
@@ -36,23 +42,17 @@ public class ClubManagement {
 		System.out.println("\nMitglied mit der ID 2 in der ersten Liste: " + list1.get(2));
 		System.out.println("Mitglied mit der ID 2 in der zweiten Liste: " + list2.get(2));
 		
-		list2.get(5).setGivenName("Günter");
+		list2.get(5).setFirstname("Günter");
 		System.out.println(list2.get(5));
 		list2.remove(5);
 		
 		System.out.println("\nErste Liste: ");
 		
-		Iterator<Member> it2 = list1.iterator();
-		while(it2.hasNext()){
-			System.out.println(it2.next());
-		}
+		System.out.println(list1);
 		
 		System.out.println("\nZweite Liste: ");
 		
-		Iterator<Member> it3 = list2.iterator();
-		while(it3.hasNext()){
-			System.out.println(it3.next());
-		}
+		System.out.println(list2);
 
 		list1.clear();
 		list2.clear();

@@ -8,6 +8,8 @@ import java.util.function.Function;
 import java.util.function.ToIntBiFunction;
 import java.util.function.ToIntFunction;
 
+import de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter.InvalidKeyException;
+
 public class MembershipList extends HashMap<Integer, Member> implements Map<Integer, Member>, Iterable<Member> {
 	private enum Columname {
 		ID("ID"), 
@@ -39,12 +41,46 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 	private static final String ROW_DELIMITER_SIGN = "-";
 	
 	private static final String EX_STRING_INVALID_COLNAME = "The given column does not exist.";
+	private static final String EX_STRING_DIFFERENT_KEYS = "The given ID is different to the ID of the member.";
+	private static final String EX_STRING_PARAM_IS_NULL = "One or more parameter are null.";
+	private static final String EX_STRING_ALREAD_EXIST = "The given ID already exitst.";
 	
 	private int lengthID;
 	private int lengthFN;
 	private int lengthSN;
 	private int lengthMS;
 	private int lengthSum;
+	
+	@Override
+	public Member put(Integer id, Member member) {
+		checkID(id, member);
+		if(containsKey(id)) {
+			throw new InvalidParameterException(EX_STRING_ALREAD_EXIST);
+		}
+		return super.put(id, member);
+	}
+	
+	@Override
+	public void putAll(Map<? extends Integer, ? extends Member> m) {
+		m.forEach((id, member) -> {
+			this.put(id, member);
+		});
+	}
+	
+	@Override
+	public Member putIfAbsent(Integer id, Member member) {
+		checkID(id, member);
+		return super.putIfAbsent(id, member);
+	}
+	
+	private void checkID(Integer id, Member member) {
+		if(id == null || member == null) {
+			throw new InvalidParameterException(EX_STRING_PARAM_IS_NULL);
+		}
+		if (id != member.getMemberID()) {
+			throw new InvalidParameterException(EX_STRING_DIFFERENT_KEYS);
+		}
+	}
 
 	public Member put(Member member) {
 		return this.put(member.getMemberID(), member);

@@ -4,21 +4,16 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.function.ToIntBiFunction;
-import java.util.function.ToIntFunction;
-
-import de.hsma.imb.ss16.tpe.del.grp7.ub2.a1.crypter.InvalidKeyException;
 
 public class MembershipList extends HashMap<Integer, Member> implements Map<Integer, Member>, Iterable<Member> {
-	private enum Columname {
+	private enum Column {
 		ID("ID"), 
 		FIRSTNAME("Vorname"),
 		SURNAME("Nachname"),
 		MEMBERSHIP("Mitgliedjahre");
 		
 		private String name;
-		private Columname(String name) {
+		private Column(String name) {
 			this.name = name;
 		}
 		
@@ -43,7 +38,6 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 	private static final String EX_STRING_INVALID_COLNAME = "The given column does not exist.";
 	private static final String EX_STRING_DIFFERENT_KEYS = "The given ID is different to the ID of the member.";
 	private static final String EX_STRING_PARAM_IS_NULL = "One or more parameter are null.";
-	private static final String EX_STRING_ALREAD_EXIST = "The given ID already exitst.";
 	
 	private int lengthID;
 	private int lengthFN;
@@ -54,9 +48,6 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 	@Override
 	public Member put(Integer id, Member member) {
 		checkID(id, member);
-		if(containsKey(id)) {
-			throw new InvalidParameterException(EX_STRING_ALREAD_EXIST);
-		}
 		return super.put(id, member);
 	}
 	
@@ -85,6 +76,24 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 	public Member put(Member member) {
 		return this.put(member.getMemberID(), member);
 	}
+	
+	@Override
+	public Member remove(Object id) {
+		Member.removeId(id);
+		return super.remove(id);
+	}
+	
+	@Override
+	public Member replace(Integer id, Member member) {
+		checkID(id, member);
+		return super.replace(id, member);
+	}
+	
+	@Override
+	public boolean replace(Integer key, Member oldValue, Member newValue) {
+		// könnte überschreiben!!
+		return super.replace(key, oldValue, newValue);
+	}
 
 	@Override
 	public String toString() {
@@ -93,8 +102,8 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 		
 		// add table head row
 		String result = delimiter;
-		result += getRow(Columname.ID.getName(), Columname.FIRSTNAME.getName(), 
-				Columname.SURNAME.getName(), Columname.MEMBERSHIP.getName());
+		result += getRow(Column.ID.getName(), Column.FIRSTNAME.getName(), 
+				Column.SURNAME.getName(), Column.MEMBERSHIP.getName());
 		result += delimiter;
 		
 		// bring every member in the right format
@@ -113,10 +122,10 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 	
 	private void refreshLengths() {
 		// refresh local vars
-		lengthID = getLengthFrom(Columname.ID);
-		lengthFN = getLengthFrom(Columname.FIRSTNAME);
-		lengthSN = getLengthFrom(Columname.SURNAME);
-		lengthMS = getLengthFrom(Columname.MEMBERSHIP);
+		lengthID = getLengthFrom(Column.ID);
+		lengthFN = getLengthFrom(Column.FIRSTNAME);
+		lengthSN = getLengthFrom(Column.SURNAME);
+		lengthMS = getLengthFrom(Column.MEMBERSHIP);
 		// sum all lengths
 		lengthSum = lengthID + lengthFN + lengthSN + lengthMS;
 		lengthSum += MARGIN_LEFT.length() + MARGIN_RIGHT.length();
@@ -140,7 +149,7 @@ public class MembershipList extends HashMap<Integer, Member> implements Map<Inte
 		return delimiter + BREAK_SIGN;
 	}
 	
-	private int getLengthFrom(Columname colname) {
+	private int getLengthFrom(Column colname) {
 		int length = 1;
 		switch (colname) {
 		case ID:

@@ -1,28 +1,46 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub3.a1;
 
-import static org.junit.Assert.*;
+import java.security.InvalidParameterException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-public class MembershipListTest {
-
+public class MembershipListTest extends Assert {
+	
+	MembershipList list1 = new MembershipList();
+	MembershipList list2 = new MembershipList();
+	MembershipList list3 = new MembershipList();
+	static Member m1 = new Member(1, "Donkeng", "Ferly", 2); 
+	static Member m2 = new Member(2, "Brückner", "Tobias", 4);
+	static Member m3 = new Member(3, "Reinhard", "Cedric", 2);
+		
+	static Member m4 = new Member(4, "Vater", "Dein", 3);
+	static Member m5 = new Member(5, "Mutter", "Deine", 6);
+	
+	@Test (expected = InvalidParameterException.class)
+	public void putMemberIDAlreadyExistsTest() {
+		list1.put(new Member(3, "nicht neu", "Ich bin", 345678));
+	}
+	
 	@Test
-	public void test() {
-		Member m = new Member(1, "Donkeng", "Ferly", 0); 
-		MembershipList list = new MembershipList();
-		list.put(m);
-		list.put(new Member(200, "Brückner", "Tobias", 4));
-		list.put(new Member(400, "Reinhard", "Cedric", 2));
-		System.out.print(list.toString());
-		MembershipList list2 = new MembershipList();
-		// würde deswegen exception werfen!
-		
-		list2.putIfAbsent(1, m);
-		list2.put(new Member(201, "Brückner", "Tobias", 4));
-		list2.put(new Member(401, "Reinhard2", "Cedric", 2));
-		System.out.print(list2.toString());
-		
-		list.putAll(list2);
-		System.out.println(list.toString());
+	public void putMemberWasntMappedTest() {
+		Object expected = null;
+		Object actual = list1.put(m1);
+		// null because there wasn't anything mapped before
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void putMemberAgainTest() {
+		Object expected = m1;
+		list1.put(m1);
+		Object actual = list1.put(m1);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void putMemberAgainWithDiffIDTest() {
+		list1.put(m1);
+		list1.put(2, m1);
 	}
 }

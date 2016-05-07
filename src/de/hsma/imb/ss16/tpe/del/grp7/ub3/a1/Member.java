@@ -1,6 +1,7 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub3.a1;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 
 /**
  * This class represents a club member and his personal data.
@@ -12,7 +13,12 @@ import java.security.InvalidParameterException;
  */
 public class Member implements Comparable<Member>{
 	
-	private int memberID;
+	private static final String ID_CONFLIC_EXCEPTION_TEXT = "ID already used";
+	private static final String ID_OR_YEARS_NOT_ALLOWED_EXCEPTION_TEXT = "negativ ID or memberYears not allowed";
+	private static final String NOT_ALLOWED_STRING_EXCEPTION = "surname or firstname cannot be null or empty ";
+	
+	private static ArrayList<Integer> listId = new ArrayList<>();
+	private int memberId;
 	private String surname;
 	private String firstname;
 	private int memberYears;
@@ -20,24 +26,34 @@ public class Member implements Comparable<Member>{
 	/**
 	 * Constructor for class member
 	 * 
-	 * @param memberID  represents a members ID
+	 * @param ID  represents a members ID
 	 * @param surname  represents a members surname
-	 * @param givenName  represents a members given name
+	 * @param firstname  represents a members given name
 	 * @param memberYears  represents  a members years of membership
 	 * @throws InvalidParameterException  
 	 * 		will be thrown if given ID is minor than 0
 	 */
-	public Member(int memberID, String firstname, String surname, int memberYears) throws InvalidParameterException {
+	public Member(int ID, String surname, String firstname, int memberYears) throws InvalidParameterException {
 		
-		if(memberID < 0){
+		if(ID < 0 || memberYears <0){
+			throw new InvalidParameterException(ID_OR_YEARS_NOT_ALLOWED_EXCEPTION_TEXT);
+		}
+		if(listId.contains(ID)){
+			throw new InvalidParameterException(ID_CONFLIC_EXCEPTION_TEXT + ID);
+		}
+		if(surname == null || firstname == null){
+			throw new InvalidParameterException(NOT_ALLOWED_STRING_EXCEPTION);
+		}
+		if(surname == "" || firstname == ""){
 			throw new InvalidParameterException();
 		}
-		this.memberID = memberID;
+		listId.add(ID);
+		this.memberId = ID;
 		this.surname = surname;
 		this.firstname = firstname;
 		this.memberYears = memberYears;
 	}
-	
+
 	/**
 	 * Getter-method for surname
 	 * 
@@ -98,7 +114,10 @@ public class Member implements Comparable<Member>{
 	 * @return return attribute memberID
 	 */
 	public int getMemberID() {
-		return memberID;
+		return memberId;
+	}
+	public static ArrayList<Integer> getListId() {
+		return listId;
 	}
 		
 	public int compareTo(Member m) {
@@ -118,7 +137,7 @@ public class Member implements Comparable<Member>{
 	
 	@Override
 	public String toString() {
-		return memberID + "\t" + firstname + "\t\t" + surname
+		return memberId + "\t" + firstname + "\t\t" + surname
 				+ "\t" + memberYears;
 	}
 	@Override
@@ -126,7 +145,7 @@ public class Member implements Comparable<Member>{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + memberID;
+		result = prime * result + memberId;
 		result = prime * result + memberYears;
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
 		return result;
@@ -145,7 +164,7 @@ public class Member implements Comparable<Member>{
 				return false;
 		} else if (!firstname.equals(other.firstname))
 			return false;
-		if (memberID != other.memberID)
+		if (memberId != other.memberId)
 			return false;
 		if (memberYears != other.memberYears)
 			return false;

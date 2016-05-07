@@ -27,14 +27,14 @@ public class Member implements Comparable<Member>{
 	 * @throws InvalidParameterException  
 	 * 		will be thrown if given ID is minor than 0
 	 */
-	public Member(int memberID, String surname, String givenName, int memberYears) throws InvalidParameterException {
+	public Member(int memberID, String firstname, String surname, int memberYears) throws InvalidParameterException {
 		
 		if(memberID < 0){
 			throw new InvalidParameterException();
 		}
 		this.memberID = memberID;
 		this.surname = surname;
-		this.firstname = givenName;
+		this.firstname = firstname;
 		this.memberYears = memberYears;
 	}
 	
@@ -61,7 +61,7 @@ public class Member implements Comparable<Member>{
 	 * 
 	 * @return return attribute givenName
 	 */
-	public String getGivenName() {
+	public String getFirstname() {
 		return firstname;
 	}
 	
@@ -70,7 +70,7 @@ public class Member implements Comparable<Member>{
 	 * 
 	 * @param new value for attribute givenName
 	 */
-	public void setGivenName(String givenName) {
+	public void setFirstname(String givenName) {
 		this.firstname = givenName;
 	}
 	

@@ -32,6 +32,7 @@ public class ClubManagement {
 		
 		System.out.println(list1);
 		
+		Member.removeId(2);
 		list1.remove(2);
 		
 		MembershipList list2 = new MembershipList();
@@ -44,8 +45,9 @@ public class ClubManagement {
 		
 		list2.get(5).setFirstname("Günter");
 		System.out.println(list2.get(5));
+
 		list2.remove(5);
-		
+			
 		System.out.println("\nErste Liste: ");
 		
 		System.out.println(list1);

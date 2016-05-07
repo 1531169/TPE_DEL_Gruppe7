@@ -6,6 +6,9 @@ public class Member {
 	private String firstname;
 	private int memberYears;
 	public Member(int memberID, String surname, String givenName, int memberYears) {
+		if(memberID < 0){
+			throw new InvalidMemberException();
+		}
 		this.memberID = memberID;
 		this.surname = surname;
 		this.firstname = givenName;

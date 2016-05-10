@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 @SuppressWarnings("serial")
 public class MembershipList extends HashMap<Integer, Member> 
@@ -144,8 +145,8 @@ public class MembershipList extends HashMap<Integer, Member>
 	
 	@Override
 	public boolean replace(Integer key, Member oldValue, Member newValue) {
-		// könnte überschreiben!!
-		return super.replace(key, oldValue, newValue);
+		// method not allowed
+		return false;
 	}
 	
 	@Override

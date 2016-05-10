@@ -45,11 +45,30 @@ public class MembershipListTest extends Assert {
 	}
 	
 	@Test
-	public void showTest() {
+	public void putAllTest() {
 		list1.put(m1);
 		list1.put(m2);
 		list1.put(m3);
 		list1.put(m4);
-		System.out.println(list1.toString());
+		list2.put(m2);
+		list2.put(m4);
+		list2.putAll(list1);
+		assertTrue(list2.size() == list1.size());
+	}
+	
+	@Test (expected = InvalidParameterException.class)
+	public void putParamNullTest() {
+		list1.put(null);
+	}
+	
+	@Test (expected = InvalidParameterException.class)
+	public void putDiffIDTest() {
+		list1.put(1, new Member(23, "", "", 3));
+	}
+	
+	@Test
+	public void replaceTest() {
+		list1.put(m1);
+		assertFalse(list1.replace(1, m1, m2));
 	}
 }

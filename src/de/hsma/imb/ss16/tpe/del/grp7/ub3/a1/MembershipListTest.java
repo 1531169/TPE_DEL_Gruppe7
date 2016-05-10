@@ -38,9 +38,18 @@ public class MembershipListTest extends Assert {
 		assertEquals(expected, actual);
 	}
 	
-	@Test
+	@Test (expected = InvalidParameterException.class)
 	public void putMemberAgainWithDiffIDTest() {
 		list1.put(m1);
 		list1.put(2, m1);
+	}
+	
+	@Test
+	public void showTest() {
+		list1.put(m1);
+		list1.put(m2);
+		list1.put(m3);
+		list1.put(m4);
+		System.out.println(list1.toString());
 	}
 }

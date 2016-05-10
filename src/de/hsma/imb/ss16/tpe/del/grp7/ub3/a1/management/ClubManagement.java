@@ -1,4 +1,8 @@
-package de.hsma.imb.ss16.tpe.del.grp7.ub3.a1;
+package de.hsma.imb.ss16.tpe.del.grp7.ub3.a1.management;
+
+import de.hsma.imb.ss16.tpe.del.grp7.ub3.a1.Member;
+import de.hsma.imb.ss16.tpe.del.grp7.ub3.a1.MembershipList;
+
 
 /**
  * This class represents a test environment for the club 
@@ -31,8 +35,6 @@ public class ClubManagement {
 		System.out.println("Länge der Vereinsliste: " + list1.size());
 		
 		System.out.println(list1);
-		
-		Member.removeId(2);
 		list1.remove(2);
 		
 		MembershipList list2 = new MembershipList();
@@ -58,6 +60,7 @@ public class ClubManagement {
 
 		list1.clear();
 		list2.clear();
+		list1.put(new Member(2, "Mustermann", "Heinz", 16));
 		
 		System.out.println("\nLänge der ersten Liste: " + list1.size());
 		System.out.println("Länge der zweiten Liste: " + list2.size());

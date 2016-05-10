@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@SuppressWarnings("serial")
 public class MembershipList extends HashMap<Integer, Member> 
 	implements Map<Integer, Member>, Iterable<Member> {
 	
@@ -73,9 +74,27 @@ public class MembershipList extends HashMap<Integer, Member>
 	 */
 	private static final String EX_STRING_PARAM_IS_NULL = "One or more parameter are null.";
 	
+	/**
+	 * Adds a Member to the MembershipList if the member does 
+	 * not already exist.
+	 * 
+	 * @param member
+	 *            Member to add
+	 * @return the previous value associated with key, or null if there was no
+	 *         mapping for key. (A null return can also indicate that the map
+	 *         previously associated null with key, if the implementation
+	 *         supports null values.)
+	 */
+	public Member put(Member member) {
+		if(member == null) {
+			throw new InvalidParameterException(EX_STRING_PARAM_IS_NULL);
+		}
+		return this.put(member.getMemberID(), member);
+	}
+	
 	@Override
 	public Member put(Integer id, Member member) {
-		checkID(id, member);
+		checkMemberAndID(id, member);
 		return super.put(id, member);
 	}
 	
@@ -88,21 +107,27 @@ public class MembershipList extends HashMap<Integer, Member>
 	
 	@Override
 	public Member putIfAbsent(Integer id, Member member) {
-		checkID(id, member);
+		checkMemberAndID(id, member);
 		return super.putIfAbsent(id, member);
 	}
 	
-	private void checkID(Integer id, Member member) {
+	/**
+	 * Checks whether the id or the member is not null and throws depending on
+	 * that an exception. Also it will throws an exception if the id and the id
+	 * from the member is different to each other.
+	 * 
+	 * @param id
+	 *            ID of the member
+	 * @param member
+	 *            member object
+	 */
+	private void checkMemberAndID(Integer id, Member member) {
 		if(id == null || member == null) {
 			throw new InvalidParameterException(EX_STRING_PARAM_IS_NULL);
 		}
 		if (id != member.getMemberID()) {
 			throw new InvalidParameterException(EX_STRING_DIFFERENT_KEYS);
 		}
-	}
-
-	public Member put(Member member) {
-		return this.put(member.getMemberID(), member);
 	}
 	
 	@Override
@@ -113,7 +138,7 @@ public class MembershipList extends HashMap<Integer, Member>
 	
 	@Override
 	public Member replace(Integer id, Member member) {
-		checkID(id, member);
+		checkMemberAndID(id, member);
 		return super.replace(id, member);
 	}
 	
@@ -121,6 +146,13 @@ public class MembershipList extends HashMap<Integer, Member>
 	public boolean replace(Integer key, Member oldValue, Member newValue) {
 		// könnte überschreiben!!
 		return super.replace(key, oldValue, newValue);
+	}
+	
+	@Override
+	public void clear() {
+		// removes all used ID's in the Member class 
+		values().forEach(m -> Member.removeId(m.getMemberID()));
+		super.clear();
 	}
 
 	@Override
@@ -153,13 +185,18 @@ public class MembershipList extends HashMap<Integer, Member>
 	}
 	
 	/**
-	 * Depending on the values in the hashmap, it creates a row of the 
-	 * values of a member.
-	 * @param cell1		value of the first cell
-	 * @param cell2		value of the second cell
-	 * @param cell3		value of the third cell
-	 * @param cell4		value of the fourth cell
-	 * @return	complete row as String
+	 * Depending on the values in the hashmap, it creates a row of the values of
+	 * a member.
+	 * 
+	 * @param cell1
+	 *            value of the first cell
+	 * @param cell2
+	 *            value of the second cell
+	 * @param cell3
+	 *            value of the third cell
+	 * @param cell4
+	 *            value of the fourth cell
+	 * @return complete row as String
 	 */
 	private String getRow(String cell1, String cell2, 
 			String cell3, String cell4) {
@@ -177,12 +214,13 @@ public class MembershipList extends HashMap<Integer, Member>
 	}
 	
 	/**
-	 * Creates a row seperator in form of the defines sign 
-	 * in the class. It takes the complete width of the table
-	 * and creates the seperator String with a break sign("\n")
-	 * at the end.
-	 * @param length	length of table
-	 * @return	seperator String
+	 * Creates a row seperator in form of the defines sign in the class. It
+	 * takes the complete width of the table and creates the seperator String
+	 * with a break sign("\n") at the end.
+	 * 
+	 * @param length
+	 *            length of table
+	 * @return seperator String
 	 */
 	private String getDelimiter() {
 		int length = MARGIN_LEFT.length() + ID_MAX_LENGTH + FIRSTNAME_MAX_LENGTH

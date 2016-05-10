@@ -13,14 +13,44 @@ import java.util.ArrayList;
  */
 public class Member implements Comparable<Member> {
 
-	private static final String ID_CONFLIC_EXCEPTION_TEXT = "ID already used ";
-	private static final String ID_OR_YEARS_NOT_ALLOWED_EXCEPTION_TEXT = "negativ ID or memberYears not allowed";
-	private static final String NOT_ALLOWED_STRING_EXCEPTION = "surname or firstname cannot be null or empty ";
+	/**
+	 *  Exception String which will be thrown if a ID was already used .
+	 */
+	private static final String EX_ID_CONFLIC_TEXT = "ID already used ";
+	
+	/**
+	 *  Exception String which will be thrown if a ID or member years are negativ.
+	 */
+	private static final String EX_ID_OR_YEARS_NOT_ALLOWED_TEXT = "negativ ID or memberYears not allowed";
+	
+	/**
+	 *  Exception String which will be thrown if surname or first name are null or empty .
+	 */
+	private static final String EX_NOT_ALLOWED_NAME_TEXT = "surname or firstname cannot be null or empty ";
 
+	/**
+	 *	list of already used ID as Integer.
+	 */
 	private static ArrayList<Integer> listId = new ArrayList<>();
+	
+	/**
+	 * represents a members ID.
+	 */
 	private int memberId;
+	
+	/**
+	 *  represents a members surname
+	 */
 	private String surname;
+	
+	/**
+	 * represents a members given name
+	 */
 	private String firstname;
+	
+	/**
+	 *  represents a members years of membership
+	 */
 	private int memberYears;
 
 	/**
@@ -40,13 +70,13 @@ public class Member implements Comparable<Member> {
 	public Member(int ID, String surname, String firstname, int memberYears) throws InvalidParameterException {
 
 		if (ID < 0 || memberYears < 0) {
-			throw new InvalidParameterException(ID_OR_YEARS_NOT_ALLOWED_EXCEPTION_TEXT);
+			throw new InvalidParameterException(EX_ID_OR_YEARS_NOT_ALLOWED_TEXT);
 		}
 		if (listId.contains(ID)) {
-			throw new InvalidParameterException(ID_CONFLIC_EXCEPTION_TEXT + ID);
+			throw new InvalidParameterException(EX_ID_CONFLIC_TEXT + ID);
 		}
 		if (surname == null || firstname == null) {
-			throw new InvalidParameterException(NOT_ALLOWED_STRING_EXCEPTION);
+			throw new InvalidParameterException(EX_NOT_ALLOWED_NAME_TEXT);
 		}
 		if (surname == "" || firstname == "") {
 			throw new InvalidParameterException();

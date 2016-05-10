@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Member implements Comparable<Member> {
 
-	private static final String ID_CONFLIC_EXCEPTION_TEXT = "ID already used";
+	private static final String ID_CONFLIC_EXCEPTION_TEXT = "ID already used ";
 	private static final String ID_OR_YEARS_NOT_ALLOWED_EXCEPTION_TEXT = "negativ ID or memberYears not allowed";
 	private static final String NOT_ALLOWED_STRING_EXCEPTION = "surname or firstname cannot be null or empty ";
 
@@ -75,8 +75,13 @@ public class Member implements Comparable<Member> {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-
-	public static void removeId(Object memberId) {
+	
+	/**
+	 * remove the ID of the intern list when a member is deleted of the HashMap.
+	 * 
+	 * @param memberId
+	 */
+	protected static void removeId(Integer memberId) {
 		listId.remove(memberId);
 	}
 
@@ -142,6 +147,38 @@ public class Member implements Comparable<Member> {
 		else {
 			return 1;
 		}
+	}
+
+	/**
+	 * this method compare first names
+	 * 
+	 * @param other is the Member to compare
+	 * 
+	 * @return true is they have same first name, else false.
+	 */
+	public boolean hasSameFirstname(Member other) {
+		return this.getFirstname() == other.getFirstname();
+	}
+
+	/**
+	 * this method compare surnames
+	 * 
+	 * @param other is the Member to compare
+	 * 
+	 * @return true is they have same surname, else false.
+	 */
+	public boolean hasSameSurname(Member other) {
+		return this.getSurname() == other.getSurname();
+	}
+	/**
+	 * this method compare Member years.
+	 * 
+	 * @param other is the member to compare
+	 * 
+	 * @return true is they have same member years, else false.
+	 */
+	public boolean hasSameMemBerYears(Member other) {
+		return this.getMemberYears() == other.getMemberYears();
 	}
 
 	@Override

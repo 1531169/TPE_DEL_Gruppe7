@@ -43,13 +43,19 @@ public class Strecke {
 	 * 
 	 * @param length  Length of the track
 	 */
-	public Strecke(int length) {
-		this.length = length;
-		pointer = 1;
+	public Strecke(ArrayList<Block> blockList2) {
+		length = ARRAY_SHIFT;
 		trainlist = new ArrayList<>();
-		blocklist = new ArrayList<>();
 		trainPosition = new HashMap<>();
 		blockBarrier = new HashMap<>();
+		pointer = ARRAY_SHIFT;
+		blockList2.stream().forEach((block) -> {
+			block.setStartPos(length);
+			this.length += block.getLength();
+			block.setEndPos(length-ARRAY_SHIFT);
+			blockBarrier.put(block.getStartPos(), block);
+		});
+		blocklist = blockList2;
 	}
 	
 	/**
@@ -65,19 +71,19 @@ public class Strecke {
 	 * @param block  block, which should be added
 	 * @return  true, if adding was successful
 	 */
-	public boolean addBlock(Block block) {
-		if((getPointer() + block.getLength()) 
-				<= (this.getLength() + ARRAY_SHIFT)) {
-			block.setStartPos(getPointer());
-			addToPointer(block.getLength());
-			block.setEndPos(getPointer() - ARRAY_SHIFT);
-			getBlockBarrier().put(block.getStartPos(), block);
-			getBlockList().add(block);
-			return true;
-		}
-		System.out.println("Streckenlänge überschritten");
-		return false;		
-	}
+//	public boolean addBlock(Block block) {
+//		if((getPointer() + block.getLength()) 
+//				<= (this.getLength() + ARRAY_SHIFT)) {
+//			block.setStartPos(getPointer());
+//			addToPointer(block.getLength());
+//			block.setEndPos(getPointer() - ARRAY_SHIFT);
+//			getBlockBarrier().put(block.getStartPos(), block);
+//			getBlockList().add(block);
+//			return true;
+//		}
+//		System.out.println("Streckenlänge überschritten");
+//		return false;		
+//	}
 	
 	/**
 	 * With this method trains can be added to the track.

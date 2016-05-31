@@ -3,10 +3,11 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub4;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 /**
  * This class represents a block, which can be part
  * of a track. When a block is added on a track its
- * start and endposition are set depending on the position
+ * start and end position are set depending on the position
  * on the track. A block has a certain length and
  * the state free or not free. A block also keeps information
  * about the trains on it.
@@ -16,6 +17,7 @@ import java.util.Queue;
  */
 public class Block {
 	
+	private static final String EX_NOT_ALLOWED_LENGTH = "length of Block can't be null or negative";
 	private boolean isFree = true;
 	private int startPos;
 	private int endPos;
@@ -26,8 +28,13 @@ public class Block {
 	 * Constructor of class Block
 	 * 
 	 * @param length  Length of the block
+	 * @throws SimulationException 
 	 */
-	public Block(int length) {
+	public Block(int length) throws SimulationException {
+		if (length < 0) {
+			throw new SimulationException(EX_NOT_ALLOWED_LENGTH);
+		}
+		
 		this.length = length;
 		trains = new LinkedList<>();
 	}

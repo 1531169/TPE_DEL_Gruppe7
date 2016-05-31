@@ -1,13 +1,16 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub4.simulationtest;
 
+import java.util.ArrayList;
+
 import de.hsma.imb.ss16.tpe.del.grp7.ub4.Block;
 import de.hsma.imb.ss16.tpe.del.grp7.ub4.Simulation;
+import de.hsma.imb.ss16.tpe.del.grp7.ub4.SimulationException;
 import de.hsma.imb.ss16.tpe.del.grp7.ub4.Strecke;
 import de.hsma.imb.ss16.tpe.del.grp7.ub4.Zug;
 
 class SimulationTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SimulationException {
 		testSimulation();
 	}
 	
@@ -17,17 +20,20 @@ class SimulationTest {
 	 * created and added to the track as well. Then threads are created
 	 * using the trains. These threads are started to let the trains drive
 	 * on the track and print their process.
+	 * @throws SimulationException 
 	 */
-	public static void testSimulation() {
-		Strecke strecke = new Strecke(70);
-		strecke.addBlock(new Block(10));
-		strecke.addBlock(new Block(5));
-		strecke.addBlock(new Block(10));
-		strecke.addBlock(new Block(10));
-		strecke.addBlock(new Block(15));
-		strecke.addBlock(new Block(10));
-		strecke.addBlock(new Block(5));
-		strecke.addBlock(new Block(5));
+	public static void testSimulation() throws SimulationException {
+		ArrayList <Block> blocksList = new ArrayList<>();
+		blocksList.add(new Block(10));
+		blocksList.add(new Block(5));
+		blocksList.add(new Block(10));
+		blocksList.add(new Block(10));
+		blocksList.add(new Block(15));
+		blocksList.add(new Block(10));
+		blocksList.add(new Block(5));
+		blocksList.add(new Block(5));
+		Strecke strecke = new Strecke(blocksList);
+		
 		
 		Zug z1 = new Zug(strecke, 'A', 5, 6);
 		Zug z2 = new Zug(strecke, 'B', 15, 11);

@@ -48,7 +48,7 @@ public class Zug implements Runnable {
 			if(b.getStartPos() <= currentPos && b.getEndPos() >= currentPos) {
 				currentBlock = b;
 				currentBlock.setNotFree();
-				currentBlock.trains.add(this);
+				currentBlock.getTrains().add(this);
 				nextBlockNr = track.getBlockList().indexOf(b) + 1;
 				nextBlock = track.getBlockList().get(nextBlockNr);
 			}

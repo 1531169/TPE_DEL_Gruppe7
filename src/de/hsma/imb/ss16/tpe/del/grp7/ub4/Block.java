@@ -20,7 +20,7 @@ public class Block {
 	private int startPos;
 	private int endPos;
 	private int length;
-	Queue<Zug> trains;
+	private Queue<Zug> trains;
 	
 	/**
 	 * Constructor of class Block
@@ -49,8 +49,8 @@ public class Block {
 	 * and a waiting train can enter this block.
 	 */
 	void leave() {
-		trains.poll();
-		if(trains.isEmpty()) {
+		getTrains().poll();
+		if(getTrains().isEmpty()) {
 			setFree();
 		}
 	}
@@ -111,5 +111,9 @@ public class Block {
 	 */
 	void setEndPos(int pos) {
 		this.endPos = pos;
+	}
+	
+	Queue<Zug> getTrains() {
+		return trains;
 	}
 }

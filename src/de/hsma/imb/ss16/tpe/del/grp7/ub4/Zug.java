@@ -1,5 +1,7 @@
 package de.hsma.imb.ss16.tpe.del.grp7.ub4;
 
+
+
 /**
  * This class represents a train, which can drive on a track.
  * Each train has a name and a certain pace. A train also knows
@@ -15,13 +17,16 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub4;
  */
 public class Zug implements Runnable {
 	
+	private static final String EX_NEGATIV_VALUE = "negativ value of velocity or position not allowed";
+	private static final int ONE = 1;
+	private static final int ONE_SECOND = 1000;
 	private Strecke track;
 	private int tracklength;
 	private Block currentBlock;
 	private Block nextBlock;
 	private int nextBlockNr;
 	private char name;
-	private int pace;
+	private int velocity;
 	private int currentPos;
 	private boolean crashed = false;
 	
@@ -35,13 +40,17 @@ public class Zug implements Runnable {
 	 * 
 	 * @param str  the track, where the train will drive on
 	 * @param name  the name of the train
-	 * @param pace  the trains pace
-	 * @param pos  the trains starting position
+	 * @param velocity  the trains pace
+	 * @param position  the trains starting position
+	 * @throws SimulationException 
 	 */
-	public Zug(Strecke str, char name, int pace, int pos) {
+	public Zug(Strecke str, char name, int velocity, int position) throws SimulationException {
+		if(velocity < 0 || position < 0){
+			throw new SimulationException(EX_NEGATIV_VALUE);
+		}
 		this.name = name;
-		this.pace = pace;
-		currentPos = pos;
+		this.velocity = velocity;
+		currentPos = position;
 		track = str;
 		tracklength = track.getLength();
 		for(Block b : track.getBlockList()) {
@@ -49,7 +58,7 @@ public class Zug implements Runnable {
 				currentBlock = b;
 				currentBlock.setNotFree();
 				currentBlock.getTrains().add(this);
-				nextBlockNr = track.getBlockList().indexOf(b) + 1;
+				nextBlockNr = track.getBlockList().indexOf(b) + ONE;
 				nextBlock = track.getBlockList().get(nextBlockNr);
 			}
 		}
@@ -64,10 +73,8 @@ public class Zug implements Runnable {
 	public void run(){
 		try{
 			while(!targetReached() && !hasCrashed()) {				
-				Thread.sleep(1000/pace);
-				if(!hasCrashed()) {
+				Thread.sleep(ONE_SECOND/velocity);
 					move();
-				}
 				checkCrashed();
 			}
 			if(targetReached()) {
@@ -92,7 +99,7 @@ public class Zug implements Runnable {
 	 * @throws InterruptedException
 	 */
 	void move() throws InterruptedException{		
-		if(currentPos + 1 == nextBlock.getStartPos()) {
+		if(currentPos + ONE == nextBlock.getStartPos()) {
 			while(!nextBlock.isFree()) {
 				synchronized(nextBlock) {
 					nextBlock.wait();
@@ -104,7 +111,7 @@ public class Zug implements Runnable {
 				currentBlock.notifyAll();
 			}
 			currentBlock = nextBlock;
-			if(nextBlockNr < track.getBlockList().size() - 1) {
+			if(nextBlockNr < track.getBlockList().size() - ONE) {
 				nextBlockNr++; 
 				nextBlock = track.getBlockList().get(nextBlockNr);
 			}
@@ -184,7 +191,7 @@ public class Zug implements Runnable {
 	 * 
 	 * @return the trains pace
 	 */
-	public int getPace() {
-		return this.pace;
+	public int getVelocity() {
+		return this.velocity;
 	}
 }

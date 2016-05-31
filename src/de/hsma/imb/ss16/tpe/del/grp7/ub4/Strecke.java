@@ -90,7 +90,7 @@ public class Strecke {
 	 * @return  true, if adding was successful
 	 */
 	public boolean addZug(Zug zug) {
-		if(zug.getCurrentPos() > 0 
+		if(zug.getCurrentPos() > MINIMUM_POSITION 
 				&& (zug.getCurrentPos() <= this.getLength())) {
 			getTrainPosition().put(zug.getCurrentPos(), zug);
 			getTrainList().add(zug);

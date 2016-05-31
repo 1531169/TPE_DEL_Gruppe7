@@ -23,10 +23,10 @@ public class Strecke {
 
 	private int length;
 	private int pointer;
-	List<Zug> trainlist;
-	List<Block> blocklist;
-	Map<Integer, Zug> trainPosition;
-	Map<Integer, Block> blockBarrier;
+	private List<Zug> trainlist;
+	private List<Block> blocklist;
+	private Map<Integer, Zug> trainPosition;
+	private Map<Integer, Block> blockBarrier;
 	
 	/**
 	 * Constructor for class Strecke
@@ -97,8 +97,20 @@ public class Strecke {
 	 * 
 	 * @return  the tracks length
 	 */
-	public int getLength() {
+	int getLength() {
 		return this.length;
+	}
+	
+	List<Block> getBlockList() {
+		return this.blocklist;
+	}
+	
+	Map<Integer, Zug> getTrainPosition() {
+		return trainPosition;
+	}
+	
+	List<Zug> getTrainList() {
+		return trainlist;
 	}
 	
 	@Override

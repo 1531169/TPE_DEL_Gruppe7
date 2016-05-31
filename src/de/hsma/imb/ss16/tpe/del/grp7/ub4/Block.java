@@ -37,7 +37,7 @@ public class Block {
 	 * 
 	 * @return  whether block is free or not free
 	 */
-	public boolean isFree() {
+	boolean isFree() {
 		return this.isFree;
 	}
 
@@ -48,7 +48,7 @@ public class Block {
 	 * left, the state of the block will be set to isFree
 	 * and a waiting train can enter this block.
 	 */
-	public void leave() {
+	void leave() {
 		trains.poll();
 		if(trains.isEmpty()) {
 			setFree();
@@ -62,7 +62,7 @@ public class Block {
 	/**
 	 * method to set isFree to false
 	 */
-	public void setNotFree() {
+	void setNotFree() {
 		this.isFree = false;
 	}
 	
@@ -99,7 +99,7 @@ public class Block {
 	 * 
 	 * @param pos  the blocks starting position
 	 */
-	public void setStartPos(int pos) {
+	void setStartPos(int pos) {
 		this.startPos = pos;
 	}
 	
@@ -109,7 +109,7 @@ public class Block {
 	 * 
 	 * @param pos  the blocks ending position
 	 */
-	public void setEndPos(int pos) {
+	void setEndPos(int pos) {
 		this.endPos = pos;
 	}
 }

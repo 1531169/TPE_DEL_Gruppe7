@@ -13,7 +13,7 @@ package de.hsma.imb.ss16.tpe.del.grp7.ub4;
  * @author Gruppe 7
  *
  */
-public class Zug implements Runnable{
+public class Zug implements Runnable {
 	
 	private Strecke track;
 	private int tracklength;
@@ -44,13 +44,13 @@ public class Zug implements Runnable{
 		currentPos = pos;
 		track = str;
 		tracklength = track.getLength();
-		for(Block b : track.blocklist) {
+		for(Block b : track.getBlockList()) {
 			if(b.getStartPos() <= currentPos && b.getEndPos() >= currentPos) {
 				currentBlock = b;
 				currentBlock.setNotFree();
 				currentBlock.trains.add(this);
-				nextBlockNr = track.blocklist.indexOf(b) + 1;
-				nextBlock = track.blocklist.get(nextBlockNr);
+				nextBlockNr = track.getBlockList().indexOf(b) + 1;
+				nextBlock = track.getBlockList().get(nextBlockNr);
 			}
 		}
 	}
@@ -91,7 +91,7 @@ public class Zug implements Runnable{
 	 * 
 	 * @throws InterruptedException
 	 */
-	public void move() throws InterruptedException{		
+	void move() throws InterruptedException{		
 		if(currentPos + 1 == nextBlock.getStartPos()) {
 			while(!nextBlock.isFree()) {
 				synchronized(nextBlock) {
@@ -104,17 +104,17 @@ public class Zug implements Runnable{
 				currentBlock.notifyAll();
 			}
 			currentBlock = nextBlock;
-			if(nextBlockNr < track.blocklist.size() - 1) {
+			if(nextBlockNr < track.getBlockList().size() - 1) {
 				nextBlockNr++; 
-				nextBlock = track.blocklist.get(nextBlockNr);
+				nextBlock = track.getBlockList().get(nextBlockNr);
 			}
 			currentBlock.setNotFree();
 		}
 				
 		synchronized(track) {
-			track.trainPosition.remove(currentPos, this);		
+			track.getTrainPosition().remove(currentPos, this);		
 			currentPos++;
-			track.trainPosition.put(currentPos, this);
+			track.getTrainPosition().put(currentPos, this);
 			System.out.println(track);
 		}
 	}
@@ -126,7 +126,7 @@ public class Zug implements Runnable{
 	 */
 	void checkCrashed() {
 		synchronized(track) {
-			for(Zug z : track.trainlist) {
+			for(Zug z : track.getTrainList()) {
 				if(!z.equals(this) && currentPos == z.getCurrentPos()) {
 					setCrashed();
 					z.setCrashed();

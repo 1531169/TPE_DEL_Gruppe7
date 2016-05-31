@@ -20,6 +20,11 @@ import java.util.Map;
  *
  */
 public class Strecke {
+	private static final Character SIGN_BLOCKED = '|';
+	private static final Character SIGN_UNBLOCKED = '_';
+	private static final Character SIGN_TRACKPOINT = '-';
+	private static final int ARRAY_SHIFT = 1;
+	private static final int MINIMUM_POSITION = 0;
 
 	private int length;
 	private int pointer;
@@ -61,12 +66,13 @@ public class Strecke {
 	 * @return  true, if adding was successful
 	 */
 	public boolean addBlock(Block block) {
-		if((pointer + block.getLength()) <= this.getLength() + 1) {
-			block.setStartPos(pointer);
-			pointer += block.getLength();
-			block.setEndPos(pointer - 1);
-			blockBarrier.put(block.getStartPos(), block);
-			blocklist.add(block);
+		if((getPointer() + block.getLength()) 
+				<= (this.getLength() + ARRAY_SHIFT)) {
+			block.setStartPos(getPointer());
+			addToPointer(block.getLength());
+			block.setEndPos(getPointer() - ARRAY_SHIFT);
+			getBlockBarrier().put(block.getStartPos(), block);
+			getBlockList().add(block);
 			return true;
 		}
 		System.out.println("Streckenlänge überschritten");
@@ -84,9 +90,10 @@ public class Strecke {
 	 * @return  true, if adding was successful
 	 */
 	public boolean addZug(Zug zug) {
-		if(zug.getCurrentPos() > 0 && zug.getCurrentPos() <= this.getLength()) {
-			trainPosition.put(zug.getCurrentPos(), zug);
-			trainlist.add(zug);
+		if(zug.getCurrentPos() > 0 
+				&& (zug.getCurrentPos() <= this.getLength())) {
+			getTrainPosition().put(zug.getCurrentPos(), zug);
+			getTrainList().add(zug);
 			return true;
 		}
 		return false;
@@ -113,27 +120,37 @@ public class Strecke {
 		return trainlist;
 	}
 	
+	Map<Integer, Block> getBlockBarrier() {
+		return blockBarrier;
+	}
+	
+	void addToPointer(int toAdd) {
+		pointer += toAdd;
+	}
+	
+	int getPointer() {
+		return pointer;
+	}
+	
 	@Override
 	public String toString() {
-		String anzeige = "";
-		
+		String result = "";
 		for(int i = 1; i <= this.getLength(); i++) {
-			if(blockBarrier.containsKey(i)) {
-				if(blockBarrier.get(i).isFree()) {
-					anzeige += '_';
+			if(getBlockBarrier().containsKey(i)) {
+				if(getBlockBarrier().get(i).isFree()) {
+					result += SIGN_UNBLOCKED;
 				}
 				else{
-					anzeige += '|';
+					result += SIGN_BLOCKED;
 				}
 			}
-			if(trainPosition.containsKey(i)) {
-				anzeige += trainPosition.get(i).getName();
+			if(getTrainPosition().containsKey(i)) {
+				result += getTrainPosition().get(i).getName();
 			}
 			else{
-				anzeige += '-';
+				result += SIGN_TRACKPOINT;
 			}
 		}
-		
-		return anzeige;
+		return result;
 	}
 }

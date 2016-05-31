@@ -20,17 +20,50 @@ import java.util.Map;
  *
  */
 public class Strecke {
+	/**
+	 * Defines the sign which is used to display that the signal is red.
+	 */
 	private static final Character SIGN_BLOCKED = '|';
+	/**
+	 * Defines the sign which is used to display that the signal is green.
+	 */
 	private static final Character SIGN_UNBLOCKED = '_';
+	/**
+	 * Defines the sign which is used to display a kilometer of the track.
+	 */
 	private static final Character SIGN_TRACKPOINT = '-';
+	/**
+	 * Defines the start value of some vars in the class.
+	 */
+	private static final int START_VALUE = 1;
+	/**
+	 * Defines the shift which is use to edit the edpositions of blocks.
+	 */
 	private static final int ARRAY_SHIFT = 1;
+	/**
+	 * Defines the minimum position on the track.
+	 */
 	private static final int MINIMUM_POSITION = 0;
 
+	/**
+	 * Length of the full track.
+	 */
 	private int length;
-	private int pointer;
+	/**
+	 * List of the trains on the track.
+	 */
 	private List<Zug> trainlist;
+	/**
+	 * List of the block of the track.
+	 */
 	private List<Block> blocklist;
+	/**
+	 * Positions of the trains.
+	 */
 	private Map<Integer, Zug> trainPosition;
+	/**
+	 * Contains information about the positions of block barriers.
+	 */
 	private Map<Integer, Block> blockBarrier;
 	
 	/**
@@ -43,47 +76,19 @@ public class Strecke {
 	 * 
 	 * @param length  Length of the track
 	 */
-	public Strecke(ArrayList<Block> blockList2) {
-		length = ARRAY_SHIFT;
+	public Strecke(ArrayList<Block> blocklist) {
+		length = START_VALUE;
 		trainlist = new ArrayList<>();
 		trainPosition = new HashMap<>();
 		blockBarrier = new HashMap<>();
-		pointer = ARRAY_SHIFT;
-		blockList2.stream().forEach((block) -> {
-			block.setStartPos(length);
-			this.length += block.getLength();
-			block.setEndPos(length-ARRAY_SHIFT);
-			blockBarrier.put(block.getStartPos(), block);
+		blocklist.stream().forEach((block) -> {
+			block.setStartPos(getLength());
+			addToLength(block.getLength());
+			block.setEndPos(getLength() - ARRAY_SHIFT);
+			getBlockBarrier().put(block.getStartPos(), block);
 		});
-		blocklist = blockList2;
+		this.blocklist = blocklist;
 	}
-	
-//	/**
-//	 * With this method blocks can be added to the track.
-//	 * Adding blocks is only possible when the track length
-//	 * is not exceeded. Depending on the position on the track
-//	 * a blocks start and endposition are set and the pointer
-//	 * is increased depending on a blocks length.
-//	 * The block is added to blocklist and the blocks
-//	 * start position and the block itself as value are put
-//	 * to blockBarrier.
-//	 * 
-//	 * @param block  block, which should be added
-//	 * @return  true, if adding was successful
-//	 */
-//	public boolean addBlock(Block block) {
-//		if((getPointer() + block.getLength()) 
-//				<= (this.getLength() + ARRAY_SHIFT)) {
-//			block.setStartPos(getPointer());
-//			addToPointer(block.getLength());
-//			block.setEndPos(getPointer() - ARRAY_SHIFT);
-//			getBlockBarrier().put(block.getStartPos(), block);
-//			getBlockList().add(block);
-//			return true;
-//		}
-//		System.out.println("Streckenlänge überschritten");
-//		return false;		
-//	}
 	
 	/**
 	 * With this method trains can be added to the track.
@@ -106,42 +111,57 @@ public class Strecke {
 	}
 	
 	/**
-	 * Getter-method for length
-	 * 
-	 * @return  the tracks length
+	 * Returns the length of the track
+	 * @return  track length
 	 */
 	int getLength() {
-		return this.length;
+		return length;
 	}
 	
+	/**
+	 * Adds the given value to the length.
+	 * @param toAdd	value to add
+	 */
+	void addToLength(int toAdd) {
+		length += toAdd;
+	}
+	
+	/**
+	 * Returns the list of the blocks.
+	 * @return	list of blocks
+	 */
 	List<Block> getBlockList() {
-		return this.blocklist;
+		return blocklist;
 	}
 	
+	/**
+	 * Returns the list of the positions of the trains.
+	 * @return	positions of trains
+	 */
 	Map<Integer, Zug> getTrainPosition() {
 		return trainPosition;
 	}
 	
+	/**
+	 * Returns the list of the trains on the track.
+	 * @return	list of trains
+	 */
 	List<Zug> getTrainList() {
 		return trainlist;
 	}
 	
+	/**
+	 * Returns the list of the barriers.
+	 * @return	list of barriers
+	 */
 	Map<Integer, Block> getBlockBarrier() {
 		return blockBarrier;
-	}
-	
-	void addToPointer(int toAdd) {
-		pointer += toAdd;
-	}
-	
-	int getPointer() {
-		return pointer;
 	}
 	
 	@Override
 	public String toString() {
 		String result = "";
-		for(int i = 1; i <= this.getLength(); i++) {
+		for(int i = START_VALUE; i <= this.getLength(); i++) {
 			if(getBlockBarrier().containsKey(i)) {
 				if(getBlockBarrier().get(i).isFree()) {
 					result += SIGN_UNBLOCKED;

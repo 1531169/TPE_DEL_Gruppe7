@@ -16,12 +16,29 @@ import java.util.Queue;
  *
  */
 public class Block {
-	
+	/**
+	 * Message for the exception.
+	 */
 	private static final String EX_NOT_ALLOWED_LENGTH = "length of Block can't be null or negative";
+	/**
+	 * Defines the state of the signal.
+	 */
 	private boolean isFree = true;
+	/**
+	 * Contains the start position of a block.
+	 */
 	private int startPos;
+	/**
+	 * Contains the end position of a block.
+	 */
 	private int endPos;
+	/**
+	 * Contains the length of a block.
+	 */
 	private int length;
+	/**
+	 * Contains the trains which are on this block.
+	 */
 	private Queue<Zug> trains;
 	
 	/**
@@ -62,12 +79,15 @@ public class Block {
 		}
 	}
 	
+	/**
+	 * Set the signal to true ("green").
+	 */
 	private void setFree() {
 		this.isFree = true;
 	}
 	
 	/**
-	 * method to set isFree to false
+	 * Set the signal to false ("red").
 	 */
 	void setNotFree() {
 		this.isFree = false;
@@ -120,6 +140,10 @@ public class Block {
 		this.endPos = pos;
 	}
 	
+	/**
+	 * Returns the list of the trains of the block.
+	 * @return
+	 */
 	Queue<Zug> getTrains() {
 		return trains;
 	}

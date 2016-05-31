@@ -8,8 +8,21 @@ import de.hsma.imb.ss16.tpe.del.grp7.ub4.SimulationException;
 import de.hsma.imb.ss16.tpe.del.grp7.ub4.Strecke;
 import de.hsma.imb.ss16.tpe.del.grp7.ub4.Zug;
 
+/**
+ * Test from the exercise. Shows how someone can use our simulation 
+ * classes from outside of the package.
+ * 
+ * @author Gruppe 7
+ *
+ */
 class SimulationTest {
 
+	/**
+	 * Starts the test simulation.
+	 * 
+	 * @param args
+	 * @throws SimulationException
+	 */
 	public static void main(String[] args) throws SimulationException {
 		testSimulation();
 	}

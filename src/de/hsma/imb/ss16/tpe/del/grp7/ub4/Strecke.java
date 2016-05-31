@@ -58,19 +58,19 @@ public class Strecke {
 		blocklist = blockList2;
 	}
 	
-	/**
-	 * With this method blocks can be added to the track.
-	 * Adding blocks is only possible when the track length
-	 * is not exceeded. Depending on the position on the track
-	 * a blocks start and endposition are set and the pointer
-	 * is increased depending on a blocks length.
-	 * The block is added to blocklist and the blocks
-	 * start position and the block itself as value are put
-	 * to blockBarrier.
-	 * 
-	 * @param block  block, which should be added
-	 * @return  true, if adding was successful
-	 */
+//	/**
+//	 * With this method blocks can be added to the track.
+//	 * Adding blocks is only possible when the track length
+//	 * is not exceeded. Depending on the position on the track
+//	 * a blocks start and endposition are set and the pointer
+//	 * is increased depending on a blocks length.
+//	 * The block is added to blocklist and the blocks
+//	 * start position and the block itself as value are put
+//	 * to blockBarrier.
+//	 * 
+//	 * @param block  block, which should be added
+//	 * @return  true, if adding was successful
+//	 */
 //	public boolean addBlock(Block block) {
 //		if((getPointer() + block.getLength()) 
 //				<= (this.getLength() + ARRAY_SHIFT)) {

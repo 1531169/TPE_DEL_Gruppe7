@@ -78,7 +78,7 @@ public class Zug implements Runnable {
 			}
 		}
 		catch(InterruptedException e) {			
-		}		
+		}
 	}
 	
 	/**

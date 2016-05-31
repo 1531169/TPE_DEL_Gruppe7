@@ -44,6 +44,7 @@ public class Strecke {
 	 * Defines the minimum position on the track.
 	 */
 	private static final int MINIMUM_POSITION = 0;
+	private static final String EX_NULL_BLOCKLIST = "null blocklist not allowed";
 
 	/**
 	 * Length of the full track.
@@ -75,8 +76,12 @@ public class Strecke {
 	 * blockBarrier: keeps information about the positions of block barriers
 	 * 
 	 * @param length  Length of the track
+	 * @throws SimulationException 
 	 */
-	public Strecke(ArrayList<Block> blocklist) {
+	public Strecke(ArrayList<Block> blocklist) throws SimulationException {
+		if(blocklist == null){
+			throw new SimulationException(EX_NULL_BLOCKLIST);
+		}
 		length = START_VALUE;
 		trainlist = new ArrayList<>();
 		trainPosition = new HashMap<>();
@@ -99,8 +104,12 @@ public class Strecke {
 	 * 
 	 * @param zug  zug, which should be added
 	 * @return  true, if adding was successful
+	 * @throws SimulationException 
 	 */
-	public boolean addZug(Zug zug) {
+	public boolean addZug(Zug zug) throws SimulationException {
+		if(zug == null){
+			throw new SimulationException();
+		}
 		if(zug.getCurrentPos() > MINIMUM_POSITION 
 				&& (zug.getCurrentPos() <= this.getLength())) {
 			getTrainPosition().put(zug.getCurrentPos(), zug);
